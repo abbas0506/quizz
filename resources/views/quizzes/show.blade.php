@@ -71,25 +71,25 @@
             <!-- option A -->
             <div class="flex flex-row mb-2">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='A') txt-b text-success @endif">{{$question->optionA}}</div>
+               <div class="w-80 @if($question->ans=='A') text-success @endif">{{$question->optionA}}</div>
             </div>
             
             <!-- option B -->
             <div class="flex flex-row mb-2">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='B') txt-b text-success @endif">{{$question->optionB}}</div>
+               <div class="w-80 @if($question->ans=='B') text-success @endif">{{$question->optionB}}</div>
             </div>
 
             <!-- option C -->
             <div class="flex flex-row mb-2">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='C') txt-b text-success @endif">{{$question->optionC}}</div>
+               <div class="w-80 @if($question->ans=='C') text-success @endif">{{$question->optionC}}</div>
             </div>
 
             <!-- option D -->
             <div class="flex flex-row mb-2">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='D') txt-b text-success @endif">{{$question->optionD}}</div>            
+               <div class="w-80 @if($question->ans=='D') text-success @endif">{{$question->optionD}}</div>            
             </div>
 
          </div>
