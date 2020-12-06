@@ -68,50 +68,45 @@
                   </div>
                </div>
             </div> 
+            <!-- option A -->
+            <div class="flex flex-row mb-2">
+               <div class="w-20 text-right pr-4">
+               @if($question->ans=='A')
+                  <i class="flaticon-next text-success txt-b correct"></i>
+               @endif
+               </div>
+               <div class="w-80">{{$question->optionA}}</div>
+            </div>
             
-            <ol type="a" class='pl-3'>
-            
-               <!-- option A -->
-               <div class="flex flex-row mb-2">
-                  <div class="w-20 text-center">
-                  @if($question->ans=='A')
-                     <i class="flaticon-tick text-success txt-b correct"></i>
-                  @endif
-                  </div>
-                  <div class="w-80"><li class='pl-2'>{{$question->optionA}}</li></div>
+            <!-- option B -->
+            <div class="flex flex-row mb-2">
+               <div class="w-20 text-right pr-4">
+               @if($question->ans=='B')
+                  <i class="flaticon-next text-success txt-b"></i>
+               @endif
                </div>
-               
-               <!-- option B -->
-               <div class="flex flex-row mb-2">
-                  <div class="w-20 text-center">
-                  @if($question->ans=='B')
-                     <i class="flaticon-tick text-success txt-b"></i>
-                  @endif
-                  </div>
-                  <div class="w-80"><li class='pl-2'>{{$question->optionB}}</li></div>
-               </div>
+               <div class="w-80">{{$question->optionB}}</div>
+            </div>
 
-               <!-- option C -->
-               <div class="flex flex-row mb-2">
-                  <div class="w-20 text-center">
-                  @if($question->ans=='C')
-                     <i class="flaticon-tick text-success txt-b"></i>
-                  @endif
-                  </div>
-                  <div class="w-80"><li class='pl-2'>{{$question->optionC}}</li></div>
+            <!-- option C -->
+            <div class="flex flex-row mb-2">
+               <div class="w-20 text-right pr-4">
+               @if($question->ans=='C')
+                  <i class="flaticon-next text-success txt-b"></i>
+               @endif
                </div>
+               <div class="w-80">{{$question->optionC}}</div>
+            </div>
 
-               <!-- option D -->
-               <div class="flex flex-row mb-2">
-                  <div class="w-20 text-center">
-                  @if($question->ans=='D')
-                     <i class="flaticon-tick text-success txt-b"></i>
-                  @endif
-                  </div>
-                  <div class="w-80"><li class='pl-2'>{{$question->optionD}}</li></div>
+            <!-- option D -->
+            <div class="flex flex-row mb-2">
+               <div class="w-20 text-right pr-4">
+               @if($question->ans=='D')
+                  <i class="flaticon-next text-success txt-b"></i>
+               @endif
                </div>
-
-            </ol>
+               <div class="w-80">{{$question->optionD}}</div>
+            </div>
 
          </div>
          
