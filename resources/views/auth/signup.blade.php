@@ -23,14 +23,14 @@
             <div class="flex flex-row mb-2">
                <div class="w-20 text-center"><i class="flaticon-user strong"></i></div>
                <div class="w-80">
-                  <input type="text" class="form-control" name="name" value="" required autocomplete="off" placeholder="Name" autofocus>
+                  <input type="text" class="form-control" name="name" value="" required placeholder="Name" autocomplete='off' pattern="[A-z ]+" oninvalid="invalidName(this);" oninput="invalidName(this);" autofocus>
                </div>
             </div>
             
             <div class="flex flex-row mb-2">
                <div class="w-20 text-center my-auto"><i class="flaticon-telephone strong"></i></div>
                <div class="w-80">
-                  <input type="text" class="form-control" name="phone" value="" required autocomplete="off" placeholder="Phone" autofocus>
+                  <input type="text" class="form-control" name="phone" value="" required autocomplete="off" placeholder="Phone" pattern="03[0-9]{9}" oninvalid="invalidPhone(this);" oninput="invalidPhone(this);">
                </div>
             </div>
             <div class="flex flex-row mb-4">
@@ -50,6 +50,32 @@
          </form>
       </div>
    </div>
+   @endsection
+   @section('script')
+      <script>
+         function invalidName(textbox) {
+    
+            if(textbox.validity.patternMismatch){
+               textbox.setCustomValidity('Use alphabets only');
+            }    
+            else {
+               textbox.setCustomValidity('');
+            }
+            return true;
+         }
+
+         function invalidPhone(textbox) {
+    
+         if(textbox.validity.patternMismatch){
+            textbox.setCustomValidity('e.g. 03001234567');
+         }    
+         else {
+            textbox.setCustomValidity('');
+         }
+         return true;
+      }
+      </script>
+
    @endsection
 
 

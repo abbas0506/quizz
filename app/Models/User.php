@@ -22,6 +22,8 @@ class User extends Authenticatable
         'password',
     ];
 
-    
-   
+    public function quizzes(){
+        return $this->hasMany('App\Models\Quiz','teacherId');
+    }
+
 }

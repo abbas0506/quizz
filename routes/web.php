@@ -34,6 +34,9 @@ Route::view('/signup','auth.signup');
 
 Route::post('/auth',[App\Http\Controllers\AuthController::class, 'signin']);
 Route::post('/signup',[App\Http\Controllers\AuthController::class, 'signup']);
+Route::get('/users',[App\Http\Controllers\UserController::class, 'index']);
+
+
 
 //route student's request 
 Route::view('/tests/filter','tests.filter');
