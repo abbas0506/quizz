@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Quiz;
+use App\Models\Level;
 
-class UserCotroller extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +19,12 @@ class UserCotroller extends Controller
         //
         $id=session('userId');
         $user=User::find($id);
+        
+        //whereIn requires an array, so convert the plucked col into array
+        $userQuizLevelIds=Quiz::where('teacherId',$user->id)->distinct('levelId')->pluck('levelId')->toArray();
 
-        echo "user called";
-
-       // return view('users.index', compact('user'));
+        $levels=Level::whereIn('id', $userQuizLevelIds)->get();
+        return view('users.index', compact('user','levels'));
 
     }
 

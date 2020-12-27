@@ -61,7 +61,7 @@ class QuestionController extends Controller
             ]);
         
         $question->save();
-        return redirect("/quizzes/".$request->quizId)->with(['success'=>"Successfully created"]);
+        return redirect("./quizdetail/".$request->quizId)->with(['success'=>"Successfully created"]);
         //return response()->json(['msg'=>$request->ans]);
     }
 
@@ -119,7 +119,7 @@ class QuestionController extends Controller
         $question->save();
 
         
-        return redirect('/quizzes/'.$question->quiz->id)->with(['success'=>"Successfully updated"]);
+        return redirect('./quizdetail/'.$question->quiz->id)->with(['success'=>"Successfully updated"]);
         
 
 
@@ -138,7 +138,7 @@ class QuestionController extends Controller
         $quizId=$question->quiz->id;
         $question->delete();
         
-        return redirect('/quizzes/'.$quizId)->with(['success'=>"Successfully deleted"]);
+        return redirect('./quizdetail/'.$quizId)->with(['success'=>"Successfully deleted"]);
 
     }
 }

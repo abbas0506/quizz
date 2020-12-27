@@ -108,7 +108,7 @@ class AuthController extends Controller
             if($request->password==$user->password){
                 //authenticated
                 session(['userId' => $user->id]);
-                return redirect('/quizzes/filter');
+                return redirect('/quizzes');
             }else{
                 return redirect('/signin')->with('error',"Either phone or password invalid!");
             }
@@ -132,7 +132,7 @@ class AuthController extends Controller
         ]);
         $user->save();
         session(['userId' => $user->id]);
-        return redirect("./quizzes/filter");
+        return redirect("./quizzes");
 
     }
 

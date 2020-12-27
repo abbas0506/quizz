@@ -3,7 +3,7 @@
    
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
       <div class="text-success txt-40"><i class="flaticon-exam"></i></div>
-      <div class="txt-b">{{$quiz->subject->name}} - {{$quiz->level->name}},  Week No. {{session('weekNo')}}</div>
+      <div class="txt-b">{{$quiz->subject->name}} - {{$quiz->level->name}},  Week No. {{$quiz->weekNo}}</div>
    </div>
 
 @endsection
@@ -62,7 +62,7 @@
                         <form method='post' action="../questions/{{$question->id}}" id="form{{$question->id}}" onsubmit="confirm('form{{$question->id}}')">
                            @csrf
                            @method('DELETE')
-                           <button class="btn btn-sm btn-link text-danger txt-10" type="submit"><i class="flaticon-trash text-danger"></i></i></button>
+                           <button class="btn btn-sm btn-link text-danger txt-10" type="submit"><i class="flaticon-trash text-danger"></i></button>
                         </form>
                      </div>
                   </div>

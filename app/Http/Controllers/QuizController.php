@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Level;
 use App\Models\Quiz;
 use App\Models\Subject;
+
 
 class QuizController extends Controller
 {
@@ -16,14 +19,14 @@ class QuizController extends Controller
     public function index()
     {
         //generates quiz detail for specific user
+        $id=session('userId');
+        $user=User::find($id);
         
-            $teacherId=session('userId');
-            $quizzes=Quiz::where('levelid', session('levelId'))
-            ->where('weekNo', session('weekNo'))
-            ->where('teacherId', session('userId'))     //userId contains teacher id
-            ->get();
-            
-            return view('quizzes.index', compact('quizzes'));
+        //whereIn requires an array, so convert the plucked col into array
+        $userQuizLevelIds=Quiz::where('teacherId',$user->id)->distinct('levelId')->pluck('levelId')->toArray();
+
+        $levels=Level::whereIn('id', $userQuizLevelIds)->get();
+        return view('quizzes.index', compact('user','levels'));
         
     }
 
@@ -63,7 +66,7 @@ class QuizController extends Controller
         $quiz->save();
         
         session(['quizId'=>$quiz->id]);
-        return redirect('/quizzes/'.$quiz->id);
+        return redirect('./quizdetail/'.$quiz->id);
     }
 
     /**
@@ -114,8 +117,11 @@ class QuizController extends Controller
     {
         //
         $quiz=Quiz::findOrFail($id);
+        $levelId=$quiz->level->id;
+        $subjectId=$quiz->subject->id;
         $quiz->delete();
-        return redirect('/quizzes');
+        
+        return redirect('./quizzes/'.$levelId.'/'.$subjectId);
     }
     public function storeFilter(Request $request){
         $request->validate([
@@ -126,6 +132,57 @@ class QuizController extends Controller
         session(['levelId' => $request->levelId]);
         session(['weekNo' => $request->weekNo]);
         
-        return redirect('/quizzes');
+        return redirect('/quizzes/create');
     }
+
+    public function expandLevel($levelId){
+              
+        $teacherId=session('userId');
+        $quizzes=Quiz::where('teacherId', $teacherId)
+        ->where('levelId', $levelId)
+        ->orderBy('weekNo')
+        ->get();
+
+        $subjects=Subject::all();
+
+        $level=Level::find($levelId);
+        
+        return view('quizzes.expandLevel', compact('level','subjects'));
+    }
+
+    public function expandSubject($levelId, $subjectId){
+              
+        $teacherId=session('userId');
+        $quizzes=Quiz::where('teacherId', $teacherId)
+        ->where('levelId', $levelId)
+        ->where('subjectId', $subjectId)
+        ->orderBy('weekNo')
+        ->get();
+
+        $subject=Subject::find($subjectId);
+        $level=Level::find($levelId);
+        
+        return view('quizzes.expandSubject', compact('level','subject','quizzes'));
+    }
+
+    public function showByLevelSubject($levelId, $subjectId){
+        $teacherId=session('userId');
+        $quizzes=Quiz::where('teacherId', $teacherId)
+        ->where('levelId', $levelId)
+        ->where('subjectId', $subjectId)
+        ->orderBy('weekNo')
+        ->get();
+
+        $level=Level::find($levelId);
+        $subject=Subject::find($subjectId);    
+        return view('quizzes.showBySubject', compact('level','subject','quizzes'));
+    }
+
+    public function showQuizDetail($id){
+        $quiz=Quiz::findOrFail($id);
+        return view("quizzes.show", compact('quiz'));
+    }
+
+
+    
 }

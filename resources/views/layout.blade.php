@@ -33,6 +33,13 @@
          .txt-10{
             font-size: 10px;
          } 
+         .txt-xs{
+            font-size: 10px;
+         }
+         .txt-s{
+            font-size: 12px;
+         }
+         
          .txt-20{
             font-size: 20px;
          } 

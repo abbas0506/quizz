@@ -50,9 +50,14 @@ Route::get('/results/{id}', [App\Http\Controllers\ResultController::class, 'show
 // Route teacher's requests
 Route::view('/quizzes/filter','quizzes.filter');
 Route::post("/quizzes/storeFilter", [App\Http\Controllers\QuizController::class, 'storeFilter']);
+
 Route::get("/quizzes", [App\Http\Controllers\QuizController::class, 'index']);
 Route::get('/quizzes/create', [App\Http\Controllers\QuizController::class, 'create']);
-Route::get('/quizzes/{id}', [App\Http\Controllers\QuizController::class, 'show']);
+Route::get('/quizzes/{levelId}', [App\Http\Controllers\QuizController::class, 'expandLevel']);
+Route::get('/quizzes/{levelId}/{subjectId}', [App\Http\Controllers\QuizController::class, 'expandSubject']);
+
+Route::get('/quizdetail/{quizId}', [App\Http\Controllers\QuizController::class, 'showQuizDetail']);
+
 Route::post("/quizzes", [App\Http\Controllers\QuizController::class, 'store']);
 Route::delete("/quizzes/{id}", [App\Http\Controllers\QuizController::class, 'destroy']);
 
