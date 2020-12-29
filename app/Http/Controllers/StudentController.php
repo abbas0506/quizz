@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Quiz;
-use App\Models\Result;
+use App\Models\Student;
+use App\Models\Level;
 use App\Models\Subject;
 
-class TestController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +17,6 @@ class TestController extends Controller
     public function index()
     {
         //
-        $levelId=session('levelId');
-       // $weekNo=session('weekNo');
-        
-        $quizzes = Quiz::where('levelId', $levelId)
-            ->get();
-            
-        return view('tests.index', compact('quizzes'));
     }
 
     /**
@@ -45,25 +38,30 @@ class TestController extends Controller
     public function store(Request $request)
     {
         //
+
         $request->validate([
-            'sname' => 'required',
+            'name' =>'required',
+            'phone' => 'required',
+            'password' => 'required',
             'levelId' => 'required',
-            'rollNo' => 'required',
             'semesterNo' => 'required',
+            'rollNo' => 'required',
             
         ]);
-        //store filter inputs
-        session([
-            'sname' => $request->sname,
-            'levelId' => $request->levelId,
-            'semesterNo' => $request->semesterNo,
-            'rollNo' => $request->rollNo
+        
+        //$quizId=session('quizId');
+        $student=new Student([
+            'name'=>$request->name,
+            'phone'=>$request->phone,
+            'password'=>$request->password,
+            'levelId'=>$request->levelId,
+            'semesterNo'=>$request->semesterNo,
+            'rollNo'=>$request->rollNo,
             ]);
         
-            //$subjectIdsWhoseTestsAreAvailable=Quiz::pluck('subjectId')->
-            $subjects=Subject::all();
-
-        return view("tests.subjects", compact('subjects'));
+        $student->save();
+        $subjects=Subject::all();
+        return redirect("../tests/subjects", compact('subjects'));
         
     }
 
@@ -75,12 +73,7 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        //store quiz id for next pages
-        session(['quizId'=>$id]);   
-
-        $quiz=Quiz::findOrFail($id);
-        return view('tests.show',compact('quiz'));
-        
+        //
     }
 
     /**
@@ -115,5 +108,9 @@ class TestController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function signup(){
+        $levels=Level::all();
+        return view('students.signup', compact('levels'));
     }
 }

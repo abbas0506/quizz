@@ -16,7 +16,8 @@ class Level extends Model
     public $timestamps = false;
 
     public function quizzes(){
-        return $this->hasMany('App\Models\Quiz','levelId');
+        return $this->hasMany('App\Models\Quiz','levelId')
+        ->where('teacherId',session('userId'));
     }
 
 }

@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Result extends Model
+class Student extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'sname',
-        'quizId',
+        'name',
+        'phone',
+        'password',
+        'levelId',
         'semesterNo',
         'rollNo',
-        'marks',
-        'total',
     ];
 
-    //public $timestamps = false;
-
+    
 }

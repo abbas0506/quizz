@@ -93,4 +93,11 @@ class UserController extends Controller
     {
         //
     }
+    public function usertype(Request $request){
+        $request->validate([
+            'usertype' => 'required',
+        ]);
+        session(['usertype'=>$request->usertype]);
+        return redirect('./signin');
+    }
 }

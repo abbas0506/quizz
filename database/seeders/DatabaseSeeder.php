@@ -21,12 +21,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        Level::create(['name' => 'Part I']);
-        Level::create(['name' => 'Part II']);
+        Level::create(['name' => 'ADPCS']);
+        Level::create(['name' => 'BSCS']);
+        Level::create(['name' => 'MSc']);
 
-        Subject::create(['name' => 'Islamiat']);
-        Subject::create(['name' => 'Pak Studies']);
-        Subject::create(['name' => 'Computer Sc.']);
+        Subject::create(['name' => 'OOP']);
+        Subject::create(['name' => 'DBS']);
+        Subject::create(['name' => 'COAL']);
         
         User::create(['name' => 'abbas','phone'=>'03424930066','password'=>'123']);
         User::create(['name' => 'umair','phone'=>'03464428505','password'=>'123']);

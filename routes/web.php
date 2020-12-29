@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Level;
 use App\Models\Question;
 use Illuminate\Http\Request;
 //use GuzzleHttp\Psr7\Request;
@@ -17,29 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/','welcome');
-
-Route::get('/visit', function(Request $request){
-    
-    $request->validate([
-        'usertype' => 'required',
-    ]);
-    
-    if($request->usertype=='student') return redirect('/tests/filter');
-    else return redirect('/signin');
-});
+Route::get('/usertype', [App\Http\Controllers\UserController::class, 'usertype']); 
 
 //authorization
 Route::view('/signin','auth.signin');
-Route::view('/signup','auth.signup');
+Route::view('/teachers/signup','teachers.signup');
+Route::get('/students/signup',[App\Http\Controllers\StudentController::class, 'signup']);
+Route::post('/students',[App\Http\Controllers\StudentController::class, 'store']);
 
 Route::post('/auth',[App\Http\Controllers\AuthController::class, 'signin']);
 Route::post('/signup',[App\Http\Controllers\AuthController::class, 'signup']);
-Route::get('/users',[App\Http\Controllers\UserController::class, 'index']);
+//Route::get('/users',[App\Http\Controllers\UserController::class, 'index']);
 
 
 
 //route student's request 
-Route::view('/tests/filter','tests.filter');
+Route::view('/students/getInfo','students.getInfo');
 Route::get("/tests", [App\Http\Controllers\TestController::class, 'index']);
 Route::get('/tests/{id}', [App\Http\Controllers\TestController::class, 'show']);
 Route::post('/tests', [App\Http\Controllers\TestController::class, 'store']);
@@ -48,7 +42,7 @@ Route::get('/results/{id}', [App\Http\Controllers\ResultController::class, 'show
 
 
 // Route teacher's requests
-Route::view('/quizzes/filter','quizzes.filter');
+Route::view('/quizzes/create','quizzes.create');
 Route::post("/quizzes/storeFilter", [App\Http\Controllers\QuizController::class, 'storeFilter']);
 
 Route::get("/quizzes", [App\Http\Controllers\QuizController::class, 'index']);

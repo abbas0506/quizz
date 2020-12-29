@@ -3,10 +3,10 @@
    @include("./my-components/header")
 @endsection
 @section('page')   
-   <div class="flex-container-centered h-80">
+   <div class="flex-container-centered h-80 p-4">
       <div class="w-30 auto-expand">
          <div class="icon-top-center"><i class="flaticon-user text-success"></i></div>
-         <form action="./visit">
+         <form action="./usertype">
             @csrf
             <label for="usertype">I am a</label>
             <select name="usertype" id="usertype" class="form-control mb-4">

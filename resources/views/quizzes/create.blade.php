@@ -1,34 +1,43 @@
-@extends("layout")
+@extends('layout')
 @section('header') 
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
-      <div class="text-success txt-40"><i class="flaticon-open-magazine"></i></div>
-      <div>Choose one of the following subjects</div>
+      <div class="text-success txt-40"><i class="flaticon-gear"></i></div>
+      <div>Please provide following quiz info</div>
    </div>
 @endsection
-
 @section('page')
    <div class="flex-container-centered h-70">
-      <div class="auto-expand">
-         <div class="flex flex-row flex-wrap">
-            <!-- display subjects -->
-            @foreach($subjects as $subject)
-               <div class="p-5 auto-expand bg-grey text-primary m-2 text-center hyper" onclick="submit('{{$subject->id}}')">{{$subject->name}}</div>
-               <form method='post' action="../quizzes" id='form{{$subject->id}}'>
-                  @csrf
-                  <input type="text" name='subjectId' hidden value="{{$subject->id}}">
-               </form>
+         <div class="w-30 auto-expand">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    </div>
+                    <br />
+            @endif
+            <!-- the url ../student/quizdetail goes 2 steps back and append student/quizdetail  -->
+            <form action="../quizzes" method='post'>
+               @csrf
+               <label for="weekNo">Select a week</label>
+               <select name="weekNo" id="weekNo" class="form-control mb-2">
+                  @for($i=1;$i<=6;$i++)
+                     <option value="{{$i}}">{{$i}}</option>
+                  @endfor
+               </select>
+
+               <label for="description">Quiz Desc.</label>
+               <input type="text" class='form-control mb-4' name='description' placeholder="Corona Special" value="Corona Special">
                
-            @endforeach
+               <button type="submit" class="form-control bg-success text-light">Create</button>
+               
+            </form>
          </div>
-      </div>
-   </div>
-@endsection
-@section('script')
-   <script>
-      function submit(subjectId){
-         var formId='form'+subjectId;
-         document.getElementById(formId).submit();
          
-      }
-   </script>
+      </div>   
 @endsection
+
+
+         

@@ -1,6 +1,6 @@
 @extends("layout")
 @section('page')
-   <div class="flex-container-centered h-100">
+   <div class="flex-container-centered h-100 p-4">
       <div class="w-30 auto-expand">
          <form method='post' action="./auth">
             @csrf
@@ -19,7 +19,12 @@
                </div>
             </div>
             <div class="flex flex-row mb-4 justify-center">
-               <div class="w-70 text-right mt-auto">Not a user, <a href='./signup'> signup</a></div>
+               @if(session('usertype')=='teacher')
+                  <div class="w-70 text-right mt-auto">Not a user, <a href='./teachers/signup'> signup</a></div>
+               @else
+                  <div class="w-70 text-right mt-auto">Not a user, <a href='./students/signup'> signup</a></div>
+               @endif
+               
                <div class="w-30 text-right ">
                   <button type="submit" class="btn btn-success">Submit</button>
                </div>

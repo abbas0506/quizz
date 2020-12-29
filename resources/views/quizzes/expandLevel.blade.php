@@ -6,11 +6,10 @@
     </div>
 @endsection
 @section('page')
-    <div class="p-2 text-center"><button type="button" class="btn btn-info btn-lg text-light rounded-50" onclick="location.href='../quizzes/filter'">+</button></div>
     <div class="flex-container-centered h-70">
        <div class="auto-expand">
            <div class="flex flex-row flex-wrap">
-                    <!-- show weekly quizzess -->
+                    <!-- show all subjects and number of quizzess for each -->
                     @foreach($subjects as $subject)
                         
                         <div class="p-5 border m-2 auto-expand bg-grey">

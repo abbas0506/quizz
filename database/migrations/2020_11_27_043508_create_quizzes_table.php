@@ -19,7 +19,9 @@ class CreateQuizzesTable extends Migration
             $table->unsignedInteger('subjectId');
             $table->unsignedInteger('weekNo');
             $table->unsignedInteger('teacherId');
-
+            $table->unsignedInteger('status')->default(1);
+            $table->string('description',50)->default("Weekly Test");
+            
             $table->foreign('levelId')
                 ->references('id')
                 ->on('levels')

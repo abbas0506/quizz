@@ -14,6 +14,8 @@ class Quiz extends Model
         'subjectId',
         'weekNo',
         'teacherId',
+        'status',
+        'description',
     ];
 
     public function teacher(){

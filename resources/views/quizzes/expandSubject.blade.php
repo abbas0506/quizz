@@ -1,15 +1,21 @@
 @extends("layout")
 @section('header') 
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
-      <div class="text-success txt-40"><i class="flaticon-mortarboard"></i></div>
+      <div class="text-success txt-40"><i class="flaticon-open-magazine"></i></div>
       <div>{{$level->name}}, {{$subject->name}}</div>
     </div>
 @endsection
 @section('page')
-    <div class="p-2 text-center"><button type="button" class="btn btn-info btn-lg text-light rounded-50" onclick="location.href='{{url('/')}}/quizzes/filter'">+</button></div>
         <div class="flex-container-centered h-70">
             <div class="auto-expand">
                 <div class="flex flex-row flex-wrap">
+                    <!-- create new quiz icon -->
+                    <div class="p-5 m-2 auto-expand bg-success">
+                        <a href="../create" class='hyper'>
+                            <div class="txt-20 txt-b text-center text-light">+</div>
+                            <div class="txt-s text-center text-light">Create Quiz</div>
+                        </a>
+                    </div>
                     <!-- show weekly quizzess -->
                     @foreach($quizzes as $quiz)
                         <div class="border m-2 auto-expand bg-grey">
@@ -24,7 +30,8 @@
                             <div class='p-5'>
                                 <a href="{{url('/')}}/quizdetail/{{$quiz->id}}" class='hyper'>
                                     <div class="txt-20 text-center">Week {{$quiz->weekNo}}</div>
-                                    <div class="txt-10 text-center">@if($quiz->created_at)Dated {{$quiz->created_at->format('d/m/y')}} @endif</div>
+                                    <div class="txt-10 text-center">{{$quiz->description}} <span class="badge badge-primary">{{$quiz->questions->count()}}</span></div>
+                                    <div class="txt-10 text-center">@if($quiz->created_at)Dated {{$quiz->created_at->format('d/m/y')}} @endif </div>
                                 </a>
                             </div>
                             

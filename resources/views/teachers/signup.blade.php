@@ -41,7 +41,7 @@
                </div>
             </div>
             <div class="flex flex-row mb-4 justify-center">
-               <div class="w-70 text-right mt-auto"> Already a user, <a href='./'> cancel</a></div>
+               <div class="w-70 text-right mt-auto"> Already a user, <a href='../signin'> cancel</a></div>
                <div class="w-30 text-right ">
                   <button type="submit" class="btn btn-success">Submit</button>
                </div>

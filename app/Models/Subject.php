@@ -19,7 +19,8 @@ class Subject extends Model
     }
     public function quizzesAtLevel($levelId){
         return $this->hasMany('App\Models\Quiz','subjectId')
-                ->where('levelId',$levelId);
+                ->where('levelId',$levelId)
+                ->where('teacherId', session('userId'));
     }
 
 

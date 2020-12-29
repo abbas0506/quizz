@@ -13,15 +13,23 @@
    <div class="flex-container-centered h-70" id='quizDetail'>
       <div class="w-70 auto-expand">
          
-      <div class="txt-b ml-2">Instructions:</div>
+         <div class="txt-b ml-2">Instructions:</div>
          <div class="txt-10 ml-2">
             <ul>
                <li>Use <i class="flaticon-plus text-info"></i> to create new question </li>
                <li>Use <i class="flaticon-pencil text-success txt-10"></i> to edit a question </li>
                <li>Use <i class="flaticon-trash text-danger"></i> to delete a question </li>
-               <li>Once you are done, click on <span class='text-danger'>finish</span> button at the end of page</li>
             </ul>   
 
+         </div>
+
+         @php
+            $levelId=session('levelId');
+            $subjectId=session('subjectId');
+         @endphp
+         <!-- footer -->
+         <div class="text-right p-2">
+            <div id='finish' class='txt-10'>After adding all questions, click on finsh button <button class="btn btn-danger btn-sm" onclick="window.location.href='../quizzes/{{$levelId}}/{{$subjectId}}'">Finish</button></div>
          </div>
          
          @if ($errors->any())
@@ -52,7 +60,7 @@
          @foreach($quiz->questions->sortByDesc('id') as $question)
          <div class="m-2 bg-grey p-2">
             <!-- question statment -->
-            <div class="flex flex-row mb-3">
+            <div class="flex flex-row mb-2">
                <div class="w-20 text-center txt-b">Q-{{$sr--}}.</div>
                <div class="w-70 txt-b">{{$question->statement}}</div>
                <div class="w-10">
@@ -69,37 +77,33 @@
                </div>
             </div> 
             <!-- option A -->
-            <div class="flex flex-row mb-2">
+            <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='A') text-success @endif">{{$question->optionA}}</div>
+               <div class="w-80 @if($question->ans=='A') text-success @endif">&#9424; {{$question->optionA}}</div>
             </div>
             
             <!-- option B -->
-            <div class="flex flex-row mb-2">
+            <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='B') text-success @endif">{{$question->optionB}}</div>
+               <div class="w-80 @if($question->ans=='B') text-success @endif">&#9425; {{$question->optionB}}</div>
             </div>
 
             <!-- option C -->
-            <div class="flex flex-row mb-2">
+            <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='C') text-success @endif">{{$question->optionC}}</div>
+               <div class="w-80 @if($question->ans=='C') text-success @endif">&#9426; {{$question->optionC}}</div>
             </div>
 
             <!-- option D -->
-            <div class="flex flex-row mb-2">
+            <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='D') text-success @endif">{{$question->optionD}}</div>            
+               <div class="w-80 @if($question->ans=='D') text-success @endif">&#9427; {{$question->optionD}}</div>            
             </div>
 
          </div>
          
          @endforeach
-
-         <!-- footer -->
-         <div class="text-center p-2">
-            <div id='finish'><button class="btn btn-danger" onclick="window.location.href='../quizzes'">Finish</button></div>
-         </div>
+         
          
       </div>
       

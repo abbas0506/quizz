@@ -18,14 +18,11 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //generates quiz detail for specific user
+        //show all levels and number of quizzes for current user
         $id=session('userId');
         $user=User::find($id);
-        
-        //whereIn requires an array, so convert the plucked col into array
-        $userQuizLevelIds=Quiz::where('teacherId',$user->id)->distinct('levelId')->pluck('levelId')->toArray();
-
-        $levels=Level::whereIn('id', $userQuizLevelIds)->get();
+              
+        $levels=Level::all();
         return view('quizzes.index', compact('user','levels'));
         
     }
@@ -38,8 +35,8 @@ class QuizController extends Controller
     public function create()
     {
         //
-        $subjects=Subject::all();
-        return view('quizzes.create',compact('subjects'));
+        return view("quizzes.create");
+        
     }
 
     /**
@@ -52,21 +49,22 @@ class QuizController extends Controller
     {
         // 
         $request->validate([
-            'subjectId' => 'required',
+            'weekNo' => 'required',
         ]);
         
         $quiz=new Quiz([
-            'levelId'=>session('levelId'),
-            'subjectId'=>$request->subjectId,
-            'weekNo'=>session('weekNo'),
             'teacherId'=>session('userId'),
+            'levelId'=>session('levelId'),
+            'subjectId'=>session('subjectId'),
+            'weekNo'=>$request->weekNo,
+            'description'=>$request->description,
 
         ]);
 
         $quiz->save();
         
         session(['quizId'=>$quiz->id]);
-        return redirect('./quizdetail/'.$quiz->id);
+        return redirect('./quizzes/'.session('levelId').'/'.session('subjectId'));
     }
 
     /**
@@ -123,18 +121,7 @@ class QuizController extends Controller
         
         return redirect('./quizzes/'.$levelId.'/'.$subjectId);
     }
-    public function storeFilter(Request $request){
-        $request->validate([
-            'levelId' => 'required',
-            'weekNo' => 'required',
-        ]);
-        //save quiz description and go to quiz detail
-        session(['levelId' => $request->levelId]);
-        session(['weekNo' => $request->weekNo]);
-        
-        return redirect('/quizzes/create');
-    }
-
+    
     public function expandLevel($levelId){
               
         $teacherId=session('userId');
@@ -142,6 +129,9 @@ class QuizController extends Controller
         ->where('levelId', $levelId)
         ->orderBy('weekNo')
         ->get();
+        
+        //save selected level
+        session(['levelId' => $levelId]);
 
         $subjects=Subject::all();
 
@@ -159,23 +149,14 @@ class QuizController extends Controller
         ->orderBy('weekNo')
         ->get();
 
-        $subject=Subject::find($subjectId);
+        //save selected level
+        session(['subjectId' => $subjectId]);
+
         $level=Level::find($levelId);
+        $subject=Subject::find($subjectId);
+        
         
         return view('quizzes.expandSubject', compact('level','subject','quizzes'));
-    }
-
-    public function showByLevelSubject($levelId, $subjectId){
-        $teacherId=session('userId');
-        $quizzes=Quiz::where('teacherId', $teacherId)
-        ->where('levelId', $levelId)
-        ->where('subjectId', $subjectId)
-        ->orderBy('weekNo')
-        ->get();
-
-        $level=Level::find($levelId);
-        $subject=Subject::find($subjectId);    
-        return view('quizzes.showBySubject', compact('level','subject','quizzes'));
     }
 
     public function showQuizDetail($id){
