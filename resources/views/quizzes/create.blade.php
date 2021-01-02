@@ -21,14 +21,7 @@
             <!-- the url ../student/quizdetail goes 2 steps back and append student/quizdetail  -->
             <form action="../quizzes" method='post'>
                @csrf
-               <label for="weekNo">Select a week</label>
-               <select name="weekNo" id="weekNo" class="form-control mb-2">
-                  @for($i=1;$i<=6;$i++)
-                     <option value="{{$i}}">{{$i}}</option>
-                  @endfor
-               </select>
-
-               <label for="description">Quiz Desc.</label>
+               <label for="description" style="color:grey">Quiz Description</label>
                <input type="text" class='form-control mb-4' name='description' placeholder="Corona Special" value="Corona Special">
                
                <button type="submit" class="form-control bg-success text-light">Create</button>

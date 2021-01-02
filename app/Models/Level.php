@@ -11,6 +11,7 @@ class Level extends Model
     
     protected $fillable = [
         'name',
+        'numOfSemesters',
     ];
 
     public $timestamps = false;
@@ -20,4 +21,10 @@ class Level extends Model
         ->where('teacherId',session('userId'));
     }
 
+    public function plans($semesterNo){
+        return $this->hasMany(Plan::class,'levelId')
+                ->where('semesterNo',$semesterNo)
+                ->get();
+                
+    }
 }

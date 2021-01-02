@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Level;
+use App\Models\User;
 use App\Models\Subject;
+use App\Models\Quiz;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -17,6 +21,8 @@ class StudentController extends Controller
     public function index()
     {
         //
+        $quizzes=Quiz::where('levelId', session('levelId'))->get();
+        return view('students.index', compact('quizzes'));
     }
 
     /**
@@ -37,8 +43,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
+        //save student
         $request->validate([
             'name' =>'required',
             'phone' => 'required',
@@ -49,19 +54,44 @@ class StudentController extends Controller
             
         ]);
         
-        //$quizId=session('quizId');
-        $student=new Student([
-            'name'=>$request->name,
-            'phone'=>$request->phone,
-            'password'=>$request->password,
-            'levelId'=>$request->levelId,
-            'semesterNo'=>$request->semesterNo,
-            'rollNo'=>$request->rollNo,
+        //first save into users table
+        DB::beginTransaction();
+        try{
+            $user=new User([
+                'name'=>$request->name,
+                'phone'=>$request->phone,
+                'password'=>$request->password,
+                'type'=>session('usertype'),
+
             ]);
-        
-        $student->save();
-        $subjects=Subject::all();
-        return redirect("../tests/subjects", compact('subjects'));
+            $user->save();
+            $userId=$user->id;
+            
+            //then save into student table
+            $student=new Student([
+                'userId'=>$userId,
+                'levelId'=>$request->levelId,
+                'semesterNo'=>$request->semesterNo,
+                'rollNo'=>$request->rollNo,
+                ]);
+            
+            $student->save();
+            
+            session([
+                'userId'=>$userId,
+                'userName'=>$user->name,
+            ]);
+            DB::commit();
+            
+            if($user->type=='student') 
+                return redirect('./students/signupSuccess');
+            else 
+                return redirect('./students/signupFailure');
+
+        }catch(Exception $ex){
+            DB::rollBack();
+            return redirect('./signin')->with(['failure'=>'Singup error']);
+        }
         
     }
 
@@ -109,7 +139,9 @@ class StudentController extends Controller
     {
         //
     }
+    
     public function signup(){
+        //show student signup form
         $levels=Level::all();
         return view('students.signup', compact('levels'));
     }

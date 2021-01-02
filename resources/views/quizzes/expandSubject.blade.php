@@ -29,8 +29,8 @@
                             </div>
                             <div class='p-5'>
                                 <a href="{{url('/')}}/quizdetail/{{$quiz->id}}" class='hyper'>
-                                    <div class="txt-20 text-center">Week {{$quiz->weekNo}}</div>
-                                    <div class="txt-10 text-center">{{$quiz->description}} <span class="badge badge-primary">{{$quiz->questions->count()}}</span></div>
+                                    <div class="txt-20 text-center">{{$quiz->description}}</div>
+                                    <div class="txt-10 text-center"> Questions <span class="badge badge-primary">{{$quiz->questions->count()}}</span></div>
                                     <div class="txt-10 text-center">@if($quiz->created_at)Dated {{$quiz->created_at->format('d/m/y')}} @endif </div>
                                 </a>
                             </div>

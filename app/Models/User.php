@@ -20,8 +20,12 @@ class User extends Authenticatable
         'name',
         'phone',
         'password',
+        'type',
     ];
 
+    public function profile(){
+        return $this->hasOne('App\Models\Student','userId');
+    }
     public function quizzes(){
         return $this->hasMany('App\Models\Quiz','teacherId');
     }

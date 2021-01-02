@@ -10,12 +10,9 @@ class Result extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sname',
+        'studentId',
         'quizId',
-        'semesterNo',
-        'rollNo',
         'marks',
-        'total',
     ];
 
     //public $timestamps = false;

@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 use App\Models\Subject;
 use App\Models\Level;
 use App\Models\User;
-use App\Models\Quiz;
-use App\Models\Question;
-use App\Models\Result;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,8 +21,8 @@ class DatabaseSeeder extends Seeder
         
         Level::create(['name' => 'ADPCS']);
         Level::create(['name' => 'BSCS']);
-        Level::create(['name' => 'MSc']);
-
+        Level::create(['name' => 'MCS']);
+        
         Subject::create(['name' => 'OOP']);
         Subject::create(['name' => 'DBS']);
         Subject::create(['name' => 'COAL']);

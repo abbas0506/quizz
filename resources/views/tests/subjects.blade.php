@@ -14,7 +14,7 @@
                 @foreach($subjects as $subject)
                 
                 <div class="p-5 border m-2 auto-expand bg-grey">
-                    <a href="./tests/{{$subject->id}}" class='hyper'>
+                    <a href="../tests" class='hyper'>
                         <div class="txt-20 text-center">{{$subject->name}} </div>
                         <div class="txt-10 text-center">Total Quizzes <span class="badge badge-primary">{{$subject->quizzes->count()}}</span></div>
                     </div>

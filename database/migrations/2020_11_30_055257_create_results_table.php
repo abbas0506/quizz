@@ -15,16 +15,19 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sname',50);  
+            $table->unsignedInteger('studentId');
             $table->unsignedInteger('quizId'); //gives level id as well
-            $table->unsignedInteger('rollNo');
-            $table->unsignedInteger('semesterNo');
-            
             $table->unsignedInteger('marks');
-            $table->unsignedInteger('total');
+            
             $table->foreign('quizId')
                 ->references('id')
                 ->on('quizzes')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            
+            $table->foreign('studentId')
+                ->references('id')
+                ->on('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

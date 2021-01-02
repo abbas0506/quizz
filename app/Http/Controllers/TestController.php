@@ -18,8 +18,6 @@ class TestController extends Controller
     {
         //
         $levelId=session('levelId');
-       // $weekNo=session('weekNo');
-        
         $quizzes = Quiz::where('levelId', $levelId)
             ->get();
             
@@ -61,9 +59,7 @@ class TestController extends Controller
             ]);
         
             //$subjectIdsWhoseTestsAreAvailable=Quiz::pluck('subjectId')->
-            $subjects=Subject::all();
-
-        return view("tests.subjects", compact('subjects'));
+            
         
     }
 
@@ -115,5 +111,12 @@ class TestController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function subjects(){
+        //list of subjects whose tests are available
+        $subjectIds=Quiz::where('levelId', session('levelId'))->distinct('subjectId')->pluck('subjectId')->toArray();
+        
+        $subjects=Subject::whereIn('id',$subjectIds)->get();
+        return view("tests.subjects", compact('subjects'));
     }
 }

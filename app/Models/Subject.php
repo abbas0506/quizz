@@ -22,6 +22,7 @@ class Subject extends Model
                 ->where('levelId',$levelId)
                 ->where('teacherId', session('userId'));
     }
+    
 
 
 

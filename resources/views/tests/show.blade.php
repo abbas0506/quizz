@@ -22,6 +22,10 @@
 
          </div>
         
+         <div class="text-center p-2">
+            <div class="hidden" id='showResultLink'><a href="{{url('/')}}/results/{{$quiz->id}}" class="btn btn-primary">Click here to view your marks</a></div>
+               
+         </div>
       
          @foreach($quiz->questions as $question)
          <div class="m-2 bg-grey p-2">
@@ -87,8 +91,7 @@
          @else
             <!-- footer -->
             <div class="text-center p-2">
-               <div id='finish'><button class="btn btn-danger" onclick="finish()">Finish</button></div>
-               <div class="hidden" id='showResultLink'><a href="{{url('/')}}/results/{{$quiz->id}}">Click here to view your marks</a></div>
+               <div id='finish'><button class="btn btn-danger" onclick="finish()">Submit</button></div>
                
             </div>
 
@@ -137,7 +140,6 @@
             url:"../results",   //two folder back
             data:{
                marks:numOfCorrect,
-               total: total,
             },
             success:function(response){
                //

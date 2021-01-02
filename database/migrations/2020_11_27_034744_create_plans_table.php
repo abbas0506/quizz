@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuizzesTable extends Migration
+class CreatePlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,30 +13,24 @@ class CreateQuizzesTable extends Migration
      */
     public function up()
     {
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('levelId');
+            $table->unsignedInteger('semesterNo');
             $table->unsignedInteger('subjectId');
-            $table->unsignedInteger('teacherId');
-            $table->unsignedInteger('status')->default(1);
-            $table->string('description',50)->default("Weekly Test");
-            
+
             $table->foreign('levelId')
                 ->references('id')
                 ->on('levels')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            
             $table->foreign('subjectId')
                 ->references('id')
                 ->on('subjects')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('teacherId')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            
+                
             $table->timestamps();
         });
     }
@@ -48,6 +42,6 @@ class CreateQuizzesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quizzes');
+        Schema::dropIfExists('plans');
     }
 }

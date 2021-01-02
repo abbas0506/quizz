@@ -12,7 +12,6 @@ class Quiz extends Model
     protected $fillable = [
         'levelId',
         'subjectId',
-        'weekNo',
         'teacherId',
         'status',
         'description',
@@ -30,6 +29,10 @@ class Quiz extends Model
 
       public function questions(){
         return $this->hasMany('App\Models\Question','quizId');
-    }
+      }
+
+      public function total(){
+        return $this->questions()->count();
+      }
 
 }

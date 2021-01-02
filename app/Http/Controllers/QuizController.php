@@ -49,14 +49,13 @@ class QuizController extends Controller
     {
         // 
         $request->validate([
-            'weekNo' => 'required',
+            'description' => 'required',
         ]);
         
         $quiz=new Quiz([
             'teacherId'=>session('userId'),
             'levelId'=>session('levelId'),
             'subjectId'=>session('subjectId'),
-            'weekNo'=>$request->weekNo,
             'description'=>$request->description,
 
         ]);
@@ -127,7 +126,6 @@ class QuizController extends Controller
         $teacherId=session('userId');
         $quizzes=Quiz::where('teacherId', $teacherId)
         ->where('levelId', $levelId)
-        ->orderBy('weekNo')
         ->get();
         
         //save selected level
@@ -146,7 +144,6 @@ class QuizController extends Controller
         $quizzes=Quiz::where('teacherId', $teacherId)
         ->where('levelId', $levelId)
         ->where('subjectId', $subjectId)
-        ->orderBy('weekNo')
         ->get();
 
         //save selected level

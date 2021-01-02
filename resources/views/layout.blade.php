@@ -27,9 +27,21 @@
          .bg-grey{
             background-color: #f6f6f7;
          }
+         /* breadcrumb */
+
+         .breadcrumb{
+            background: transparent;
+            font-size:0.8rem !important;
+            }
+         .breadcrumb li a{
+            color:green;
+         }
          
          /* text related css */
          
+         .txt-8{
+            font-size:8px;
+         }
          .txt-10{
             font-size: 10px;
          } 
@@ -38,6 +50,10 @@
          }
          .txt-s{
             font-size: 12px;
+         }
+
+         .txt-grey{
+            color:grey;
          }
          
          .txt-20{
@@ -76,6 +92,10 @@
          }
          .justify-end{
             justify-content: flex-end;
+         }
+
+         .justify-space-around{
+            justify-content: space-around;
          }
          .flex-container-centered{
             display: flex;

@@ -108,7 +108,12 @@ class AuthController extends Controller
             if($request->password==$user->password){
                 //authenticated
                 session(['userId' => $user->id]);
-                return redirect('/quizzes');
+                
+                if($user->type=='student')
+                    return redirect('./students');
+                else 
+                    if($user->type=='teacher')
+                        return redirect('./teachers');
             }else{
                 return redirect('/signin')->with('error',"Either phone or password invalid!");
             }

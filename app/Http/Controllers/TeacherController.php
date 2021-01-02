@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Quiz;
-use App\Models\Student;
+use App\Models\User;
 
-use App\Models\Result;
-
-class ResultController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +15,9 @@ class ResultController extends Controller
     public function index()
     {
         //
+        
+        $teacher=User::find(session('userId'));
+        return view('teachers.index', compact('teacher'));
     }
 
     /**
@@ -38,26 +38,7 @@ class ResultController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'marks' => 'required',
-        ]);
-        
-        $student=Student::where('userId',session('userId'))->first();
-        
-        $result = new Result([
-            'studentId' => $student->id,
-            'quizId' => session('quizId'),
-            'marks' => $request->marks,
-        ]);
-
-        //store marks for next page
-        session([
-            'obtained'=> $request->marks,
-            
-        ]);
-        
-        $result->save();
-        return response()->json(['msg'=>"Successfully submitted"]);
+        //
     }
 
     /**
@@ -69,11 +50,6 @@ class ResultController extends Controller
     public function show($id)
     {
         //
-        $obtained=session('obtained');
-        $total=Quiz::find($id)->total();
-        return view('results.show', compact('obtained','total'));
-
-
     }
 
     /**
