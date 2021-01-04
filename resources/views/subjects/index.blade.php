@@ -25,7 +25,7 @@
 
          <!-- footer -->
          <div class="text-right p-2">
-            <div id='finish' class='txt-10'>After adding all subjects, click on finsh button <button class="btn btn-danger btn-sm" onclick="window.location.href='#'">Finish</button></div>
+            <div id='finish' class='txt-10'>After adding all subjects, click on finsh button <button class="btn btn-danger btn-sm" onclick="window.location.href='./home'">Finish</button></div>
          </div>
          
          @if ($errors->any())

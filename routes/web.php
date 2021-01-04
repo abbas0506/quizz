@@ -1,15 +1,16 @@
 <?php
 
-use App\Models\Level;
-use App\Models\Question;
-use Illuminate\Http\Request;
-//use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\DepartmentController;
+use App\http\Middleware\AdminAccess;
+use App\http\Middleware\TeacherAccess;
+
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SubjectController;
-use App\http\Middleware\AdminAccess;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\QuizController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ Route::get('/usertype', [App\Http\Controllers\UserController::class, 'usertype']
 //authorization
 Route::view('/signin','auth.signin');
 Route::view('/teachers/signup','teachers.signup');
-Route::get('/teachers',[App\Http\Controllers\TeacherController::class, 'index']);
+
+
 
 Route::get('/students/signup',[App\Http\Controllers\StudentController::class, 'signup']);
 Route::get('/students',[App\Http\Controllers\StudentController::class, 'index']);
@@ -51,36 +53,28 @@ Route::post('/tests', [App\Http\Controllers\TestController::class, 'store']);
 Route::post('/results',[App\Http\Controllers\ResultController::class, 'store']);
 Route::get('/results/{id}', [App\Http\Controllers\ResultController::class, 'show']);
 
-
-// Route teacher's requests
-Route::view('/quizzes/create','quizzes.create');
-Route::post("/quizzes/storeFilter", [App\Http\Controllers\QuizController::class, 'storeFilter']);
-
-Route::get("/quizzes", [App\Http\Controllers\QuizController::class, 'index']);
-Route::get('/quizzes/create', [App\Http\Controllers\QuizController::class, 'create']);
-Route::get('/quizzes/{levelId}', [App\Http\Controllers\QuizController::class, 'expandLevel']);
-Route::get('/quizzes/{levelId}/{subjectId}', [App\Http\Controllers\QuizController::class, 'expandSubject']);
-
-Route::get('/quizdetail/{quizId}', [App\Http\Controllers\QuizController::class, 'showQuizDetail']);
-
-Route::post("/quizzes", [App\Http\Controllers\QuizController::class, 'store']);
-Route::delete("/quizzes/{id}", [App\Http\Controllers\QuizController::class, 'destroy']);
-
-
 Route::get("/questions/{id}", [App\Http\Controllers\QuestionController::class, 'edit']);
 Route::post("/questions", [App\Http\Controllers\QuestionController::class, 'store']);
 Route::post("/questions/{id}", [App\Http\Controllers\QuestionController::class, 'update']);
 Route::delete("/questions/{id}", [App\Http\Controllers\QuestionController::class, 'destroy']);
 
+
+Route::resource('attempted', AttemptedController::class);
+Route::resource('unattempted', UnattemptedController::class);
+
+
+
+Route::view('/admin','admin.signin');
 Route::middleware([AdminAccess::class])->group(function(){
+      Route::view('/home','admin.index');
       Route::resource('levels', LevelController::class)->except(['create']);
       Route::resource('subjects', SubjectController::class)->except(['create']);
-      
-      //course plan routes
-      Route::get('/plans',[App\Http\Controllers\PlanController::class, 'index']);
-      Route::get('/plans/{id}',[App\Http\Controllers\PlanController::class, 'show']);
-      Route::post('/plans',[App\Http\Controllers\PlanController::class, 'store']);
-      Route::delete("/plans/{id}", [App\Http\Controllers\PlanController::class, 'destroy']);
+      Route::resource('plans', PlanController::class)->except(['create','edit']);
 
-   
+});
+
+
+Route::middleware([TeacherAccess::class])->group(function(){
+      Route::get('/teachers',[TeacherController::class, 'index']);
+      Route::resource('quizzes', QuizController::class);
 });

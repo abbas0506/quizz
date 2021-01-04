@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         
         User::create(['name' => 'abbas','phone'=>'03424930066','password'=>'123']);
         User::create(['name' => 'umair','phone'=>'03464428505','password'=>'123']);
-        
+        User::create(['name' => 'admin','phone'=>'ahmad','password'=>'admin1','type'=>'admin']);
         // Quiz::factory(50)->create();
         // Question::factory(300)->create();
         // Result::factory(1)->create();

@@ -16,5 +16,15 @@ class Student extends Model
         'rollNo',
     ];
 
+    public function attemptedQuizzes(){
+        return $this->hasMany('App\Models\Attempt','studentId');
+    }
+
+    public function relevantQuizzes(){
+
+    }
+    public function unattemptedQuizzes(){
+
+    }
     
 }

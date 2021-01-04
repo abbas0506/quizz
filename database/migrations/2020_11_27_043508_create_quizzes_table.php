@@ -15,22 +15,17 @@ class CreateQuizzesTable extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('levelId');
             $table->unsignedInteger('subjectId');
             $table->unsignedInteger('teacherId');
             $table->unsignedInteger('status')->default(1);
             $table->string('description',50)->default("Weekly Test");
             
-            $table->foreign('levelId')
-                ->references('id')
-                ->on('levels')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->foreign('subjectId')
                 ->references('id')
                 ->on('subjects')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            
             $table->foreign('teacherId')
                 ->references('id')
                 ->on('users')

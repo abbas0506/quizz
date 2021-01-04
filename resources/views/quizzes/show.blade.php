@@ -3,7 +3,7 @@
    
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
       <div class="text-success txt-40"><i class="flaticon-exam"></i></div>
-      <div class="txt-b">{{$quiz->subject->name}} - {{$quiz->level->name}},  Week No. {{$quiz->weekNo}}</div>
+      <div class="txt-b">{{$quiz->subject->name}} - {{$quiz->description}}</div>
    </div>
 
 @endsection
@@ -23,13 +23,9 @@
 
          </div>
 
-         @php
-            $levelId=session('levelId');
-            $subjectId=session('subjectId');
-         @endphp
          <!-- footer -->
          <div class="text-right p-2">
-            <div id='finish' class='txt-10'>After adding all questions, click on finsh button <button class="btn btn-danger btn-sm" onclick="window.location.href='../quizzes/{{$levelId}}/{{$subjectId}}'">Finish</button></div>
+            <div id='finish' class='txt-10'>After adding all questions, click on finsh button <button class="btn btn-danger btn-sm" onclick="window.location.href='../quizzes'">Finish</button></div>
          </div>
          
          @if ($errors->any())
@@ -79,25 +75,25 @@
             <!-- option A -->
             <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='A') text-success @endif">&#9424; {{$question->optionA}}</div>
+               <div class="w-80 @if($question->ans=='A') text-success @endif"> a. &nbsp {{$question->optionA}}</div>
             </div>
             
             <!-- option B -->
             <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='B') text-success @endif">&#9425; {{$question->optionB}}</div>
+               <div class="w-80 @if($question->ans=='B') text-success @endif">b. &nbsp {{$question->optionB}}</div>
             </div>
 
             <!-- option C -->
             <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='C') text-success @endif">&#9426; {{$question->optionC}}</div>
+               <div class="w-80 @if($question->ans=='C') text-success @endif">c. &nbsp {{$question->optionC}}</div>
             </div>
 
             <!-- option D -->
             <div class="flex flex-row mb-1">
                <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='D') text-success @endif">&#9427; {{$question->optionD}}</div>            
+               <div class="w-80 @if($question->ans=='D') text-success @endif">d. &nbsp {{$question->optionD}}</div>            
             </div>
 
          </div>

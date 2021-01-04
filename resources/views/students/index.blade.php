@@ -16,8 +16,8 @@
                </a>
             </div>
             <div class="p-5 border m-2 auto-expand bg-grey">
-               <a href="./tests/subjects" class='hyper'>
-                  <div class="txt-20 text-center">Quizzes</div>
+               <a href="./attempts" class='hyper'>
+                  <div class="txt-20 text-center">Attempts</div>
                   <div class="txt-10 text-center">Click here to see <span class="badge badge-primary">{{$quizzes->count()}}</span></div>
                </a>
             </div>

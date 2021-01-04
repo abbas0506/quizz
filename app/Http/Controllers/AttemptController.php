@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Exception;
+
 use App\Models\Student;
 use App\Models\Level;
 use App\Models\User;
@@ -10,10 +11,9 @@ use App\Models\Subject;
 use App\Models\Quiz;
 use App\Models\Test;
 use App\Models\Plan;
-use Exception;
-use Illuminate\Support\Facades\DB;
 
-class StudentController extends Controller
+
+class AttemptController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,32 +22,36 @@ class StudentController extends Controller
      */
     public function index()
     {
+        //
+        $attemptedQuizzes=
         // find quizzes for current student
         $id=session('userId');
         $student=Student::where('userId',$id)->first();
         
-       $levelId=$student->levelId;
+        $levelId=$student->levelId;
         
         //find all subjects  of current student during current semester
-        $allSubjectIds=Plan::where('levelId',$student->levelId)
-            ->where('semesterNo', $student->semesterNo)
-            ->distinct('subjectId')
-            ->pluck('subjectId')
-            ->toArray();
+        // $allSubjectIds=Plan::where('levelId',$student->levelId)
+        //     ->where('semesterNo', $student->semesterNo)
+        //     ->distinct('subjectId')
+        //     ->pluck('subjectId')
+        //     ->toArray();
 
-        $subjects=Subject::whereIn('id', $allSubjectIds)->get();
+        // $subjects=Subject::whereIn('id', $allSubjectIds)->get();
         
         //find all attempted
         $attemptedQuizIds=Test::where('studentId',$student->id)->get();
         
         //find all relevant quizzes for current student
-        $relevantQuizzes=Quiz::whereIn('subjectId',$allSubjectIds)->get();
+        // $relevantQuizzes=Quiz::whereIn('subjectId',$allSubjectIds)->get();
 
-        $quizzes=$relevantQuizzes;
+        //$quizzes=$relevantQuizzes;
         
         //echo "student:".$student->name;
         // $quizzes=Quiz::where('levelId', $student->levelId)->get();
-        return view('students.index', compact('quizzes'));
+        return view('attempts.index', compact('attemptedQuizzes'));
+  
+        
     }
 
     /**
@@ -68,56 +72,27 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //save student
+        //
         $request->validate([
-            'name' =>'required',
-            'phone' => 'required',
-            'password' => 'required',
-            'levelId' => 'required',
-            'semesterNo' => 'required',
-            'rollNo' => 'required',
+            'marks' => 'required',
+        ]);
+        
+        $student=Student::where('userId',session('userId'))->first();
+        
+        $result = new Attempt([
+            'studentId' => $student->id,
+            'quizId' => session('quizId'),
+            'marks' => $request->marks,
+        ]);
+
+        //store marks for next page
+        session([
+            'obtained'=> $request->marks,
             
         ]);
         
-        //first save into users table
-        DB::beginTransaction();
-        try{
-            $user=new User([
-                'name'=>$request->name,
-                'phone'=>$request->phone,
-                'password'=>$request->password,
-                'type'=>session('usertype'),
-
-            ]);
-            $user->save();
-            $userId=$user->id;
-            
-            //then save into student table
-            $student=new Student([
-                'userId'=>$userId,
-                'levelId'=>$request->levelId,
-                'semesterNo'=>$request->semesterNo,
-                'rollNo'=>$request->rollNo,
-                ]);
-            
-            $student->save();
-            
-            session([
-                'userId'=>$userId,
-                'userName'=>$user->name,
-            ]);
-            DB::commit();
-            
-            if($user->type=='student') 
-                return redirect('./students/signupSuccess');
-            else 
-                return redirect('./students/signupFailure');
-
-        }catch(Exception $ex){
-            DB::rollBack();
-            return redirect('./signin')->with(['failure'=>'Singup error']);
-        }
-        
+        $result->save();
+        return response()->json(['msg'=>"Successfully submitted"]);
     }
 
     /**
@@ -163,11 +138,5 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-    }
-    
-    public function signup(){
-        //show student signup form
-        $levels=Level::all();
-        return view('students.signup', compact('levels'));
     }
 }

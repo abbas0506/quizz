@@ -45,10 +45,8 @@
          .txt-10{
             font-size: 10px;
          } 
-         .txt-xs{
-            font-size: 10px;
-         }
-         .txt-s{
+         
+         .txt-12{
             font-size: 12px;
          }
 
@@ -112,14 +110,27 @@
          .w-10{
             width:10%;   
          }
+
+         .w-15{
+            width:15%;   
+         }
          .w-20{
             width:20%;
+         }
+         .w-25{
+            width:25%;
          }
          .w-30{
             width:30%;
          }
+         .w-35{
+            width:35%;
+         }
          .w-40{
             width:40%;
+         }
+         .w-45{
+            width:45%;
          }
          .w-50{
             width:50% !important;

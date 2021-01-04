@@ -109,11 +109,21 @@ class AuthController extends Controller
                 //authenticated
                 session(['userId' => $user->id]);
                 
-                if($user->type=='student')
+                if($user->type=='student'){
+                    session(['role'=>'teacher']);
                     return redirect('./students');
-                else 
-                    if($user->type=='teacher')
+                }
+                    
+                if($user->type=='teacher'){
+                        session(['role'=>'teacher']);
                         return redirect('./teachers');
+                    }
+                    
+                if($user->type=='admin'){
+                    session(['role'=>'admin']);
+                    return redirect('./home');
+                }
+                
             }else{
                 return redirect('/signin')->with('error',"Either phone or password invalid!");
             }
