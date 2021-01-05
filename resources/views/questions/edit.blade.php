@@ -2,7 +2,7 @@
 @section('header') 
    
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
-      <div class="text-success txt-40"><i class="flaticon-pencil"></i></div>
+      <div class="text-success txt-30"><i class="flaticon-pencil"></i></div>
       <div>Edit Question</div>
    </div>
 
@@ -35,8 +35,9 @@
            
          @endphp
          <!-- display most recent question on top -->
-         <form method="post" action="../questions/{{$question->id}}">
+         <form method="post" action="{{route('questions.update',$question->id)}}">
 						   @csrf
+                     @method('PUT')
 						   <!-- Question statement -->
                      <div class="txt-b my-auto txt-20 mb-4">Q.</div>
                      <div class="mb-4"><textarea rows='3' class="form-control" placeholder="Question statement" required name='statement' value="{{$question->statement}}">{{$question->statement}}</textarea></div>

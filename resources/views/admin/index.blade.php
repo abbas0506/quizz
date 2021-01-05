@@ -9,8 +9,9 @@
 @endsection
 
 @section('page')
+   <div class="p-2 text-center"><a href='./signout' class="hyper text-danger">Signout <i class="flaticon-power text-danger txt-b"></i></a></div>
    <div class="flex-container-centered h-70 p-4">
-      <div class="w-70 auto-expand">
+      <div class="w-50 auto-expand">
          <div class="txt-b ml-2">How to use?</div>
          <div class='ml-2 txt-10'>      
             <ol type="i">
@@ -38,12 +39,7 @@
                   <div class="text-center">Course Plan</div>
                </a>
             </div>
-            <div class="p-5 border m-2 auto-expand bg-grey">
-               <a href="#" class='hyper'>
-                  <div class="text-center">Enrollment</div>
-               </a>
-            </div>
-                    
+            
          </div>
                 
       </div>

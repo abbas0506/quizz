@@ -5,13 +5,7 @@ use Illuminate\Http\Request;
 use Exception;
 
 use App\Models\Student;
-use App\Models\Level;
-use App\Models\User;
-use App\Models\Subject;
-use App\Models\Quiz;
-use App\Models\Test;
-use App\Models\Plan;
-
+use App\Models\Attempt;
 
 class AttemptController extends Controller
 {
@@ -22,34 +16,11 @@ class AttemptController extends Controller
      */
     public function index()
     {
-        //
-        $attemptedQuizzes=
-        // find quizzes for current student
+        // find attempted quizzes for current student
         $id=session('userId');
         $student=Student::where('userId',$id)->first();
         
-        $levelId=$student->levelId;
-        
-        //find all subjects  of current student during current semester
-        // $allSubjectIds=Plan::where('levelId',$student->levelId)
-        //     ->where('semesterNo', $student->semesterNo)
-        //     ->distinct('subjectId')
-        //     ->pluck('subjectId')
-        //     ->toArray();
-
-        // $subjects=Subject::whereIn('id', $allSubjectIds)->get();
-        
-        //find all attempted
-        $attemptedQuizIds=Test::where('studentId',$student->id)->get();
-        
-        //find all relevant quizzes for current student
-        // $relevantQuizzes=Quiz::whereIn('subjectId',$allSubjectIds)->get();
-
-        //$quizzes=$relevantQuizzes;
-        
-        //echo "student:".$student->name;
-        // $quizzes=Quiz::where('levelId', $student->levelId)->get();
-        return view('attempts.index', compact('attemptedQuizzes'));
+        return view('tests.attempts.index', compact('student'));
   
         
     }
@@ -74,25 +45,20 @@ class AttemptController extends Controller
     {
         //
         $request->validate([
+            'quizId'=> 'required',
             'marks' => 'required',
         ]);
         
         $student=Student::where('userId',session('userId'))->first();
         
-        $result = new Attempt([
+        $attempt = new Attempt([
             'studentId' => $student->id,
-            'quizId' => session('quizId'),
+            'quizId' => $request->quizId,
             'marks' => $request->marks,
         ]);
 
-        //store marks for next page
-        session([
-            'obtained'=> $request->marks,
-            
-        ]);
-        
-        $result->save();
-        return response()->json(['msg'=>"Successfully submitted"]);
+        $attempt->save();
+        return redirect('./attempts/'.$attempt->id);
     }
 
     /**
@@ -104,6 +70,8 @@ class AttemptController extends Controller
     public function show($id)
     {
         //
+        $attempt=Attempt::findOrFail($id);
+        return view('tests.attempts.show', compact('attempt'));
     }
 
     /**

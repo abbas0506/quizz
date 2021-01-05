@@ -18,7 +18,8 @@ class CreatePlansTable extends Migration
             $table->unsignedInteger('levelId');
             $table->unsignedInteger('semesterNo');
             $table->unsignedInteger('subjectId');
-
+            $table->unique(['levelId','subjectId']);    //unique key, subject cant repeat at same level
+            
             $table->foreign('levelId')
                 ->references('id')
                 ->on('levels')

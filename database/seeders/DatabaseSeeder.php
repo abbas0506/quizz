@@ -20,19 +20,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         
         Level::create(['name' => 'ADPCS']);
-        Level::create(['name' => 'BSCS']);
-        Level::create(['name' => 'MCS']);
-        
+        Level::create(['name' => 'BSCS','numOfSemesters'=>'8']);
+       
         Subject::create(['name' => 'OOP']);
         Subject::create(['name' => 'DBS']);
         Subject::create(['name' => 'COAL']);
         
-        User::create(['name' => 'abbas','phone'=>'03424930066','password'=>'123']);
-        User::create(['name' => 'umair','phone'=>'03464428505','password'=>'123']);
-        User::create(['name' => 'admin','phone'=>'ahmad','password'=>'admin1','type'=>'admin']);
-        // Quiz::factory(50)->create();
-        // Question::factory(300)->create();
-        // Result::factory(1)->create();
+        User::create(['name' => 'admin','phone'=>'admin','password'=>'123','type'=>'admin']);
+        User::create(['name' => 'teacher','phone'=>'03424930066','password'=>'123','type'=>'teacher']);
         
     }
 }

@@ -202,6 +202,21 @@
          .hidden{
             display: none;
          }
+
+         .top-left{
+            /* parent div must have relative position */
+            position: absolute;
+            left:0px;
+            top:-16px;
+         }
+
+         .top-right-corner{
+            /* parent div must have relative position */
+            position: absolute;
+            right:0px;
+            top:-5px;
+         }
+         
          .icon-top-center{
             position: relative;
             font-size: 40px;

@@ -16,11 +16,6 @@ class Level extends Model
 
     public $timestamps = false;
 
-    public function quizzes(){
-        return $this->hasMany('App\Models\Quiz','levelId')
-        ->where('teacherId',session('userId'));
-    }
-
     public function plans($semesterNo){
         return $this->hasMany(Plan::class,'levelId')
                 ->where('semesterNo',$semesterNo)

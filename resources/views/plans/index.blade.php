@@ -74,7 +74,7 @@
                   <a href='{{$level->id}}-{{$i}}' data-toggle='collapse' data-target='#L{{$level->id}}-{{$i}}' role='button' aria-expanded="false" aria-controls="{{$level->name}}-{{$i}}">
                      Semester {{$i}}
                   </a>
-                  &nbsp &nbsp ({{$level->plans($i)->count()}})
+                  &nbsp &nbsp <span class="badge badge-primary rounded-50">{{$level->plans($i)->count()}}</span>
                </div>
                <div class="w-10 text-center"><i class="flaticon-plus text-success" onclick="showCreateModel('{{$level->id}}','{{$i}}')"></i></div>
             </div>

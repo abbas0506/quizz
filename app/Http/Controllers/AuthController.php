@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 
 class AuthController extends Controller
 {
@@ -110,7 +110,7 @@ class AuthController extends Controller
                 session(['userId' => $user->id]);
                 
                 if($user->type=='student'){
-                    session(['role'=>'teacher']);
+                    session(['role'=>'student']);
                     return redirect('./students');
                 }
                     
@@ -149,6 +149,11 @@ class AuthController extends Controller
         session(['userId' => $user->id]);
         return redirect("./quizzes");
 
+    }
+    
+    public function signout(){
+        session()->flush();
+        return redirect ('/');
     }
 
 }

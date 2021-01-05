@@ -28,11 +28,14 @@
             @foreach($subjects as $subject)
             <div class="flex flex-col border mb-2">
                 <div class="flex flex-row bg-grey p-2">   
-                    <a href='#' data-toggle='collapse' data-target='#s{{$subject->id}}' role='button' aria-expanded="false" aria-controls="s{{$subject->id}}">
-                        {{$subject->name}}
-                    </a>
-                    &nbsp &nbsp ({{$subject->quizzes->count()}})
-                
+                    
+                    <div class="w-90 pl-3">
+                        <a href='#' data-toggle='collapse' data-target='#s{{$subject->id}}' role='button' aria-expanded="false" aria-controls="s{{$subject->id}}">
+                            {{$subject->name}}
+                        </a>
+                    </div>
+                    <div class="w-10 text-center"><span class="badge badge-primary rounded-50">{{$subject->quizzes->count()}}</span></div>
+                    
                 </div>
             
                 <div class="flex flex-col collapse p-2" id='s{{$subject->id}}'>   

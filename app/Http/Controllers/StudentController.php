@@ -25,29 +25,7 @@ class StudentController extends Controller
         // find quizzes for current student
         $id=session('userId');
         $student=Student::where('userId',$id)->first();
-        
-       $levelId=$student->levelId;
-        
-        //find all subjects  of current student during current semester
-        $allSubjectIds=Plan::where('levelId',$student->levelId)
-            ->where('semesterNo', $student->semesterNo)
-            ->distinct('subjectId')
-            ->pluck('subjectId')
-            ->toArray();
-
-        $subjects=Subject::whereIn('id', $allSubjectIds)->get();
-        
-        //find all attempted
-        $attemptedQuizIds=Test::where('studentId',$student->id)->get();
-        
-        //find all relevant quizzes for current student
-        $relevantQuizzes=Quiz::whereIn('subjectId',$allSubjectIds)->get();
-
-        $quizzes=$relevantQuizzes;
-        
-        //echo "student:".$student->name;
-        // $quizzes=Quiz::where('levelId', $student->levelId)->get();
-        return view('students.index', compact('quizzes'));
+        return view('students.index', compact('student'));
     }
 
     /**

@@ -6,6 +6,7 @@
     </div>
 @endsection
 @section('page')
+   <div class="p-2 text-center"><a href='./signout' class="hyper text-danger">Signout <i class="flaticon-power text-danger txt-b"></i></a></div>
    <div class="flex-container-centered h-70">
       <div class="auto-expand">
          <div class="flex flex-row flex-wrap">

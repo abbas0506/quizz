@@ -54,46 +54,46 @@
          
          <!-- display most recent question on top -->
          @foreach($quiz->questions->sortByDesc('id') as $question)
-         <div class="m-2 bg-grey p-2">
+         <div class="m-2 bg-grey border p-2">
             <!-- question statment -->
-            <div class="flex flex-row mb-2">
-               <div class="w-20 text-center txt-b">Q-{{$sr--}}.</div>
-               <div class="w-70 txt-b">{{$question->statement}}</div>
-               <div class="w-10">
-                  <div class="flex flex-row justify-end">
-                     <div><a href="../questions/{{$question->id}}" ><i class="flaticon-pencil text-success txt-10"></i></a></div>
-                     <div>
-                        <form method='post' action="../questions/{{$question->id}}" id="form{{$question->id}}" onsubmit="confirm('form{{$question->id}}')">
-                           @csrf
-                           @method('DELETE')
-                           <button class="btn btn-sm btn-link text-danger txt-10" type="submit"><i class="flaticon-trash text-danger"></i></button>
-                        </form>
-                     </div>
+            <div style='position:relative' >
+               <span class='badge badge-primary rounded-50 top-left'>Q. {{$sr--}}</span>
+               <div class="flex flex-row p-2">
+                  <div class="w-10"></div>
+                  <div class=" txt-b">{{$question->statement}}</div>
+                  <div class="top-right-corner">
+                     <a href="{{route('questions.edit', $question->id)}}" class="hyper"><i class="flaticon-pencil text-success txt-10"></i></a>
+                     <i class="flaticon-trash text-danger txt-10 hyper" onclick="confirm('form{{$question->id}}')"></i>
                   </div>
                </div>
-            </div> 
+            </div>
+            
+            <form method='post' action="{{route('questions.destroy',$question->id)}}" id="form{{$question->id}}">
+               @csrf
+               @method('DELETE')
+            </form> 
             <!-- option A -->
             <div class="flex flex-row mb-1">
-               <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='A') text-success @endif"> a. &nbsp {{$question->optionA}}</div>
+               <div class="w-10 text-right pr-4"></div>
+               <div class="w-90 @if($question->ans=='A') text-success txt-b @endif"> a. &nbsp {{$question->optionA}}</div>
             </div>
             
             <!-- option B -->
             <div class="flex flex-row mb-1">
-               <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='B') text-success @endif">b. &nbsp {{$question->optionB}}</div>
+               <div class="w-10 text-right pr-4"></div>
+               <div class="w-90 @if($question->ans=='B') text-success txt-b @endif">b. &nbsp {{$question->optionB}}</div>
             </div>
 
             <!-- option C -->
             <div class="flex flex-row mb-1">
-               <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='C') text-success @endif">c. &nbsp {{$question->optionC}}</div>
+               <div class="w-10 text-right pr-4"></div>
+               <div class="w-90 @if($question->ans=='C') text-success txt-b @endif">c. &nbsp {{$question->optionC}}</div>
             </div>
 
             <!-- option D -->
             <div class="flex flex-row mb-1">
-               <div class="w-20 text-right pr-4"></div>
-               <div class="w-80 @if($question->ans=='D') text-success @endif">d. &nbsp {{$question->optionD}}</div>            
+               <div class="w-10 text-right pr-4"></div>
+               <div class="w-90 @if($question->ans=='D') text-success txt-b @endif">d. &nbsp {{$question->optionD}}</div>            
             </div>
 
          </div>
@@ -184,7 +184,7 @@
                         
                     if (result.value) {
                         //submit form 
-                       document.getElementById(formId).submit();
+                       $('#'+formId).submit();
                        
                      }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Quiz;
 
 class Subject extends Model
 {
@@ -15,17 +16,17 @@ class Subject extends Model
     public $timestamps = false;
 
     public function quizzes(){
-        return $this->hasMany('App\Models\Quiz','subjectId');
+        return $this->hasMany(Quiz::class,'subjectId');
     }
     
-    public function quizzesAtLevel($levelId){
-        return $this->hasMany('App\Models\Quiz','subjectId')
-                ->where('levelId',$levelId)
-                ->where('teacherId', session('userId'));
+    public function attempts(){
+        $attempts=collect();
+        foreach($this->quizzes as $quiz){
+            foreach($quiz->attempts as $attempt){
+                $attempts->push($attempt);
+            }
+        }
+        return $attempts;
     }
     
-
-
-
-
 }

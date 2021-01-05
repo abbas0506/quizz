@@ -27,8 +27,12 @@ class Quiz extends Model
     public function questions(){
         return $this->hasMany('App\Models\Question','quizId');
       }
+    
+      public function attempts(){
+        return $this->hasMany('App\Models\Attempt','quizId');
+      }
 
-    public function total(){
+    public function marks(){
         return $this->questions()->count();
       }
 
