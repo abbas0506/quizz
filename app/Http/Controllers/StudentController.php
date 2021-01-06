@@ -46,55 +46,6 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //save student
-        $request->validate([
-            'name' =>'required',
-            'phone' => 'required',
-            'password' => 'required',
-            'levelId' => 'required',
-            'semesterNo' => 'required',
-            'rollNo' => 'required',
-            
-        ]);
-        
-        //first save into users table
-        DB::beginTransaction();
-        try{
-            $user=new User([
-                'name'=>$request->name,
-                'phone'=>$request->phone,
-                'password'=>$request->password,
-                'type'=>session('usertype'),
-
-            ]);
-            $user->save();
-            $userId=$user->id;
-            
-            //then save into student table
-            $student=new Student([
-                'userId'=>$userId,
-                'levelId'=>$request->levelId,
-                'semesterNo'=>$request->semesterNo,
-                'rollNo'=>$request->rollNo,
-                ]);
-            
-            $student->save();
-            
-            session([
-                'userId'=>$userId,
-                'userName'=>$user->name,
-            ]);
-            DB::commit();
-            
-            if($user->type=='student') 
-                return redirect('./students/signupSuccess');
-            else 
-                return redirect('./students/signupFailure');
-
-        }catch(Exception $ex){
-            DB::rollBack();
-            return redirect('./signin')->with(['failure'=>'Singup error']);
-        }
         
     }
 
@@ -141,11 +92,5 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-    }
-    
-    public function signup(){
-        //show student signup form
-        $levels=Level::all();
-        return view('students.signup', compact('levels'));
     }
 }

@@ -15,8 +15,7 @@ class TeacherController extends Controller
     public function index()
     {
         //
-        
-        $teacher=User::find(session('userId'));
+        $teacher=User::findOrFail(session('userId'))->teacher;
         return view('teachers.index', compact('teacher'));
     }
 

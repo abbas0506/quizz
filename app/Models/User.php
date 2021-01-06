@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\TeacherController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,11 +24,12 @@ class User extends Authenticatable
         'type',
     ];
 
-    public function profile(){
-        return $this->hasOne('App\Models\Student','userId');
+    public function student(){
+        return $this->hasOne(Student::class,'userId');
     }
-    public function quizzes(){
-        return $this->hasMany('App\Models\Quiz','teacherId');
+    public function teacher(){
+        return $this->hasOne(Teacher::class,'userId');
     }
-
+    
+    
 }

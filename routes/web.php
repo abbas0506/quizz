@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+//middleware classes
 use App\http\Middleware\AdminAccess;
 use App\http\Middleware\TeacherAccess;
 use App\http\Middleware\StudentAccess;
 
-use App\Http\Controllers\AuthController;
+//controller classes
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
@@ -32,16 +33,13 @@ use App\Http\Controllers\PendingController;
 Route::view('/','welcome');
 Route::get('/usertype', [UserController::class, 'usertype']); 
 
-//authorization
-Route::view('/signin','auth.signin');
-Route::get('/signout',[AuthController::class, 'signout']);
-Route::view('/teachers/signup','teachers.signup');
-
-Route::get('/students/signup',[StudentController::class, 'signup']);
-Route::view('/students/signupSuccess','students.signupSuccess');
-Route::view('/students/signupFailure','students.signupFailure');
-
-Route::post('/auth',[AuthController::class, 'signin']);
+//user authorization
+Route::view('/signin','users.signin');
+Route::post('/signin', [UserController::class, 'signin']);
+Route::get('/signup', [UserController::class, 'create']);
+Route::post('/signup', [UserController::class, 'store']);
+Route::get('/signout',[UserController::class, 'signout']);
+Route::view('/signup_success', 'users.signup_success');
 
 // 
 
@@ -62,7 +60,7 @@ Route::middleware([TeacherAccess::class])->group(function(){
 
 
 Route::middleware([StudentAccess::class])->group(function(){
-      Route::resource('students', StudentController::class);
+      Route::resource('students', StudentController::class)->only('index');
       Route::resource('attempts', AttemptController::class);
       Route::resource('pendings', PendingController::class);
 

@@ -2,7 +2,7 @@
 @section('page')
    <div class="flex-container-centered h-100 p-4">
       <div class="w-30 auto-expand">
-         <form method='post' action="./auth">
+         <form method='post' action="./signin">
             @csrf
             <div class="border-bottom border-success mb-5"><h3>Login</h3></div>
             <div class="flex flex-row mb-2">

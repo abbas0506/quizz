@@ -2,7 +2,7 @@
 @section('header') 
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
       <div class="text-success txt-40"><i class="flaticon-teacher"></i></div>
-      <div>Welcome,  {{$teacher->name}}</div>
+      <div class="txt-b">Welcome,  {{$teacher->profile->name}}</div>
     </div>
 @endsection
 @section('page')

@@ -2,7 +2,7 @@
 @section('page')
    <div class="flex-container-centered h-100 p-4">
       <div class="w-30 auto-expand">
-         <form method='post' action="./auth">
+         <form method='post' action="./signin">
             @csrf
             <div class="border-bottom border-success mb-5"><h3>Login</h3></div>
             <div class="flex flex-row mb-2">
@@ -19,12 +19,7 @@
                </div>
             </div>
             <div class="flex flex-row mb-4 justify-center">
-               @if(session('usertype')=='teacher')
-                  <div class="w-70 text-right mt-auto">Not a user, <a href='./teachers/signup'> signup</a></div>
-               @else
-                  <div class="w-70 text-right mt-auto">Not a user, <a href='./students/signup'> signup</a></div>
-               @endif
-               
+               <div class="w-70 text-right mt-auto">Not a user, <a href='./signup'>signup</a></div>
                <div class="w-30 text-right ">
                   <button type="submit" class="btn btn-success">Submit</button>
                </div>

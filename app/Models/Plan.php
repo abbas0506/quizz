@@ -17,6 +17,9 @@ class Plan extends Model
 
     public $timestamps = false;
 
+    public function level(){
+        return $this->belongsTo(Level::class, 'subjectId');
+    }
     public function subject(){
         return $this->belongsTo(Subject::class, 'subjectId');
     }

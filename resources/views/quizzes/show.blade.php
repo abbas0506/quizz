@@ -59,10 +59,11 @@
             <div style='position:relative' >
                <span class='badge badge-primary rounded-50 top-left'>Q. {{$sr--}}</span>
                <div class="flex flex-row p-2">
-                  <div class="w-10"></div>
+                  <div class="w-5"></div>
                   <div class=" txt-b">{{$question->statement}}</div>
                   <div class="top-right-corner">
                      <a href="{{route('questions.edit', $question->id)}}" class="hyper"><i class="flaticon-pencil text-success txt-10"></i></a>
+                     &nbsp
                      <i class="flaticon-trash text-danger txt-10 hyper" onclick="confirm('form{{$question->id}}')"></i>
                   </div>
                </div>

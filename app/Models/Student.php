@@ -17,17 +17,32 @@ class Student extends Model
     ];
 
     public function profile(){
-        return $this->belongsTo('App\Models\User','userId');
+        return $this->belongsTo(User::class,'userId');
     }
 
     public function level(){
-        return $this->belongsTo('App\Models\Level', 'levelId');
+        return $this->belongsTo(Level::class, 'levelId');
     }
 
+    public function attempts(){
+        return $this->hasMany(Attempt::class,'studentId');
+    }
+    
+    public function attemptsBySubjectId($subjectId){
+        $attempts=collect();
+        foreach($this->attempts as $attempt){
+            if($attempt->quiz->subjectId==$subjectId)
+                $attempts->push($attempt);
+        }
+        return $attempts;
+
+    }
+    
     public function subjects(){
-        $subjects=collect();
         
-        $plans=$this->level->plans($this->semesterNo);
+        //fetch all subject scheduled for student's level and semester no.
+        $subjects=collect();
+        $plans=$this->level->plans->where('semesterNo',$this->semesterNo);
         foreach($plans as $plan){
             $subjects->push($plan->subject);
         }
@@ -48,27 +63,6 @@ class Student extends Model
         return $this->quizzes()->where('subjectId',$subjectId);
     }
 
-    public function attempts(){
-        return $this->hasMany('App\Models\Attempt','studentId');
-    }
-    
-    public function attemptsBySubjectId($subjectId){
-        $attempts=collect();
-        foreach($this->attempts as $attempt){
-            if($attempt->quiz->subjectId==$subjectId)
-                $attempts->push($attempt);
-        }
-        return $attempts;
-
-    }
-    
-    public function pendingQuizzes(){
-        return $this->quizzes()->diff($this->attemptedQuizzes());
-    }
-    public function pendingQuizzesBySubjectId($subjectId){
-        return $this->quizzesBySubjectId($subjectId)->diff($this->attemptedQuizzesBySubjectId($subjectId));
-    }
-
     public function attemptedQuizzes(){
         $quizzes=collect();
         foreach($this->attempts as $attempt){
@@ -77,6 +71,15 @@ class Student extends Model
         return $quizzes;
     }
 
+    
+    public function pendingQuizzes(){
+        return $this->quizzes()->diff($this->attemptedQuizzes());
+    }
+    public function pendingQuizzesBySubjectId($subjectId){
+        return $this->quizzesBySubjectId($subjectId)->diff($this->attemptedQuizzesBySubjectId($subjectId));
+    }
+
+    
     public function attemptedQuizzesBySubjectId($subjectId){
         return $this->attemptedQuizzes()->where('subjectId',$subjectId);
         

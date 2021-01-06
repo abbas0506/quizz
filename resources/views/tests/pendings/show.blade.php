@@ -3,7 +3,7 @@
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
       <div class="text-success txt-40"><i class="flaticon-exam"></i></div>
       <div class="txt-b">{{$quiz->subject->name}}</div>
-      <div class="txt-12">( {{$quiz->teacher->name}} )</div>
+      <div class="txt-12">( {{$quiz->teacher->profile->name}} )</div>
    </div>
 @endsection
 @php $sr=0; @endphp

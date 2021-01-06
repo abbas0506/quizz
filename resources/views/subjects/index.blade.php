@@ -109,11 +109,8 @@
 					   <form method="post" action="{{route('subjects.store')}}">
 						   @csrf
                      
-                     <div class="txt-10 my-auto mb-2 mt-4">subject Name</div>
+                     <div class="txt-10 my-auto mb-2 mt-4">Subject Name</div>
                      <div class="mb-4"><input type="text" class="form-control" placeholder="subject name" required id='name' name='name'></div>
-                     
-                     <div class="txt-10 my-auto mb-4">Number of total Semesters</div>
-                     <div class="mb-4"><input type="number" class="form-control" placeholder="number of semesters" required name='numOfSemesters' min='1' max='8' value="4"></div>
                      
                      <div class="text-right mb-2"><button type='submit' class="btn btn-success">Submit</button></div>
 

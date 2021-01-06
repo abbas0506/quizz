@@ -2,7 +2,7 @@
 @section('header') 
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
       <div class="text-success txt-40"><i class="flaticon-write-letter"></i></div>
-      <div>Your Attempts </div>
+      <div class="txt-b">Your Attempts </div>
    </div>
 @endsection
 @section('page')

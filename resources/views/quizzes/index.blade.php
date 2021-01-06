@@ -2,14 +2,14 @@
 @section('header') 
    <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
       <div class="text-success txt-40"><i class="flaticon-write-letter"></i></div>
-      <div>Your Quizzes </div>
+      <div><b>Your Quizzes</b> &nbsp <span class="badge badge-success rounded-50">{{$teacher->quizzes->count()}}</span></div>
    </div>
 @endsection
 @section('page')
     <div class="p-2 text-center"><button type="button" class="btn btn-info btn-lg text-light rounded-50" onclick="window.location.href='./quizzes/create'">+</button></div>
     <div class="flex-container-centered h-70">
        <div class="w-70 auto-expand">
-        <div class="txt-b ml-2">How to use?</div>
+            <div class="txt-b ml-2">How to use?</div>
             <div class="txt-10 ml-2">
                 <ul>
                     <li><i class="flaticon-plus text-info"></i> Create new quiz </li>
@@ -25,7 +25,7 @@
                 <div id='finish' class='txt-10'> Click me to go back <button class="btn btn-primary btn-sm" onclick="window.location.href='./teachers'">Home</button></div>
             </div>
             <!-- display most recent subects on top -->
-            @foreach($subjects as $subject)
+            @foreach($subjectsHavingQuiz as $subject)
             <div class="flex flex-col border mb-2">
                 <div class="flex flex-row bg-grey p-2">   
                     
@@ -34,12 +34,16 @@
                             {{$subject->name}}
                         </a>
                     </div>
-                    <div class="w-10 text-center"><span class="badge badge-primary rounded-50">{{$subject->quizzes->count()}}</span></div>
+                    <!-- find quizzes of current subject for this teacher -->
+                    @php 
+                        $quizzes=$teacher->quizzesBySubjectId($subject->id);
+                    @endphp
+                    <div class="w-10 text-center"><span class="badge badge-primary rounded-50">{{$quizzes->count()}}</span></div>
                     
                 </div>
             
                 <div class="flex flex-col collapse p-2" id='s{{$subject->id}}'>   
-                    @foreach($subject->quizzes as $quiz)
+                    @foreach($quizzes as $quiz)
                         <div class="flex flex-row">
                             <div class="w-10"></div>
                             <div class="w-45"> &#8226;  &nbsp <a href="./quizzes/{{$quiz->id}}">{{$quiz->description}} </a></div>

@@ -19,14 +19,5 @@ class Subject extends Model
         return $this->hasMany(Quiz::class,'subjectId');
     }
     
-    public function attempts(){
-        $attempts=collect();
-        foreach($this->quizzes as $quiz){
-            foreach($quiz->attempts as $attempt){
-                $attempts->push($attempt);
-            }
-        }
-        return $attempts;
-    }
     
 }

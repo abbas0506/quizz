@@ -24,7 +24,7 @@
             </div>
             <div class="p-5 border m-2 auto-expand bg-grey">
                <a href="./pendings" class='hyper'>
-                  <div class="txt-20 text-center">New</div>
+                  <div class="txt-20 text-center">Pending</div>
                   <div class="txt-10 text-center">Click here to see <span class="badge badge-primary">{{$student->pendingQuizzes()->count()}}/{{$student->quizzes()->count()}}</span></div>
                </a>
             </div>

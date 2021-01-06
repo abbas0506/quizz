@@ -22,7 +22,7 @@ class Question extends Model
     public $timestamps = false;
 
     public function quiz(){
-        return $this->belongsTo('App\Models\Quiz','quizId');
+        return $this->belongsTo(Quiz::class,'quizId');
     }
 
 

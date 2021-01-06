@@ -28,7 +28,7 @@ class CreateQuizzesTable extends Migration
             
             $table->foreign('teacherId')
                 ->references('id')
-                ->on('users')
+                ->on('teachers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             

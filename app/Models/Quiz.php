@@ -17,19 +17,19 @@ class Quiz extends Model
     ];
 
     public function teacher(){
-        return $this->belongsTo('App\Models\User','teacherId');
+        return $this->belongsTo(Teacher::class,'teacherId');
       }
     
     public function subject(){
-        return $this->belongsTo('App\Models\Subject','subjectId');
+        return $this->belongsTo(Subject::class,'subjectId');
       }
 
     public function questions(){
-        return $this->hasMany('App\Models\Question','quizId');
+        return $this->hasMany(Question::class,'quizId');
       }
     
       public function attempts(){
-        return $this->hasMany('App\Models\Attempt','quizId');
+        return $this->hasMany(Attempt::class,'quizId');
       }
 
     public function marks(){

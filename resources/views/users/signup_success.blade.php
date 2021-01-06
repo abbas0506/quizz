@@ -16,7 +16,13 @@
             @else
                <div class="border-bottom border-success mb-5"><h3>Congratulation!</h3></div>
                <div class="alert alert-success">Successful signup</div>
-               <div><a href='../tests/subjects' class="btn btn-success">Proceed</a></div>
+               <div>
+               @if(session('role')=='student')
+                  <a href='./students' class="btn btn-success">Proceed</a>
+               @elseif(session('role')=='teacher')
+                  <a href='./teachers' class="btn btn-success">Proceed</a>
+               @endif
+               </div>
             @endif
       </div>
    </div>
