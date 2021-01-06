@@ -32,8 +32,16 @@ class Quiz extends Model
         return $this->hasMany(Attempt::class,'quizId');
       }
 
-    public function marks(){
+      public function marks(){
         return $this->questions()->count();
+      }
+
+      public function avg(){
+        $sum=$this->attempts->sum(function($attempt){
+          return $attempt->marks;
+        });
+        $n=$this->attempts->count();
+        return round($sum/$n,2);
       }
 
 }

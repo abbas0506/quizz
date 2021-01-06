@@ -6,11 +6,23 @@
       <div class="txt-12">( {{$quiz->teacher->profile->name}} )</div>
    </div>
 @endsection
+
 @php $sr=0; @endphp
 @section('page')
    <div class="flex-container-centered h-70" id='quizDetail'>
       <div class="w-70 auto-expand">
-         
+      
+         @if ($errors->any())
+            <div class="alert alert-danger m-2">
+               <ul>
+                  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+               </ul>
+            </div>
+            <br />
+         @endif
+
          <div class="txt-b m-4">Instructions:</div>
          <div class="txt-10 ml-2">
             <ul>

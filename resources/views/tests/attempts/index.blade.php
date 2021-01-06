@@ -27,19 +27,21 @@
             <div class="flex flex-col border mb-2">
                 <div class="flex flex-row bg-grey p-2">   
                     <a href='#' data-toggle='collapse' data-target='#s{{$subject->id}}' role='button' aria-expanded="false" aria-controls="s{{$subject->id}}">
-                        {{$subject->name}}
+                            {{$subject->name}}
                     </a>
-                    &nbsp &nbsp <span class="badge badge-success txt-8 my-auto">{{$student->attemptsBySubjectId($subject->id)->count()}}</span>
-                
+                    
+                    &nbsp &nbsp    <span class="badge badge-success txt-10 my-auto">{{$student->attemptsBySubjectId($subject->id)->count()}}</span>
+                    
                 </div>
             
                 <div class="flex flex-col collapse p-2" id='s{{$subject->id}}'>   
                     @foreach($student->attemptsBySubjectId($subject->id) as $attempt)
                         <div class="flex flex-row">
                             <div class="w-10"></div>
-                            <div class="w-50"> &#8226;  &nbsp {{$attempt->quiz->description}} </div>
-                            <div class="w-20 my-auto txt-10">{{$attempt->quiz->created_at->format('d-m-Y')}}</div>
-                            <div class="w-10 my-auto txt-10"><span class="badge badge-primary">{{$attempt->marks}}/{{$attempt->total()}}</span></div>
+                            <div class="w-35"> &#8226;  &nbsp {{$attempt->quiz->description}} </div>
+                            <div class="w-15 my-auto txt-10">avg : {{$attempt->quiz->avg()}}/{{$attempt->total()}} </div>
+                            <div class="w-20 my-auto txt-10">{{$attempt->quiz->created_at->format('d-m-y')}}</div>
+                            <div class="w-10 my-auto txt-12"><span class="badge badge-primary rounded-50">{{$attempt->marks}}</span>&nbsp @if($attempt->quiz->avg()>=$attempt->marks) &#129045;@endif</div>
                             
                             <div class="w-10">
                                 <div class="flex flex-row justify-center">

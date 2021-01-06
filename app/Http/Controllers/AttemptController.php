@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Exception;
 
+use App\Models\User;
 use App\Models\Student;
 use App\Models\Attempt;
 
@@ -49,16 +50,20 @@ class AttemptController extends Controller
             'marks' => 'required',
         ]);
         
-        $student=Student::where('userId',session('userId'))->first();
-        
-        $attempt = new Attempt([
-            'studentId' => $student->id,
-            'quizId' => $request->quizId,
-            'marks' => $request->marks,
-        ]);
+        try{
+            $student=User::findOrFail(session('userId'))->student;
+            $attempt = new Attempt([
+                'studentId' => $student->id,
+                'quizId' => $request->quizId,
+                'marks' => $request->marks,
+            ]);
 
-        $attempt->save();
-        return redirect('./attempts/'.$attempt->id);
+            $attempt->save();
+            return redirect('./attempts/'.$attempt->id);
+        }catch(Exception $ex){
+            return redirect()->back()->withErrors(['Error!','It seems as if you have tried to re-attempt same quiz']);
+        }
+        
     }
 
     /**

@@ -37,9 +37,9 @@
                     @foreach($student->pendingQuizzesBySubjectId($subject->id) as $quiz)
                         <div class="flex flex-row">
                             <div class="w-10"></div>
-                            <div class="w-60"> &#8226;  &nbsp <a href="./pendings/{{$quiz->id}}" class="hyper">{{$quiz->description}} </a> </div>
-                            <div class="w-20 my-auto txt-10">{{$quiz->created_at->format('d-m-Y')}}</div>
-                            <div class="w-10 my-auto txt-10 text-center"><span class="badge badge-primary">{{$quiz->questions->count()}}</span></div>
+                            <div class="w-50 txt-12"> &#8226;  &nbsp <a href="./pendings/{{$quiz->id}}" class="hyper">{{$quiz->description}} </a> </div>
+                            <div class="w-20 my-auto txt-12">{{$quiz->created_at->format('d-m-Y')}}</div>
+                            <div class="w-20 my-auto txt-12 text-center">Marks: {{$quiz->questions->count()}}</div>
                         </div>
                         
                     @endforeach

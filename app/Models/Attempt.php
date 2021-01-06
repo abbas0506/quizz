@@ -22,5 +22,9 @@ class Attempt extends Model
     public function total(){
         return $this->quiz->questions->count();
     }
+    public function percentage(){
+        $temp=round($this->marks/$this->total()*100,1);
+        return $temp;
+    }
 
 }
