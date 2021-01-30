@@ -74,13 +74,13 @@
                   <a href='{{$level->id}}-{{$i}}' data-toggle='collapse' data-target='#L{{$level->id}}-{{$i}}' role='button' aria-expanded="false" aria-controls="{{$level->name}}-{{$i}}">
                      Semester {{$i}}
                   </a>
-                  &nbsp &nbsp <span class="badge badge-primary rounded-50">{{$level->plans($i)->count()}}</span>
+                  &nbsp &nbsp <span class="badge badge-primary rounded-50">{{$level->plansBySemesterId($i)->count()}}</span>
                </div>
                <div class="w-10 text-center"><i class="flaticon-plus text-success" onclick="showCreateModel('{{$level->id}}','{{$i}}')"></i></div>
             </div>
             
             <div class="flex flex-col mb-2 collapse border-bottom" id='L{{$level->id}}-{{$i}}'>   
-               @foreach($level->plans($i) as $plan)
+               @foreach($level->plansBySemesterId($i) as $plan)
                   <div class="flex flex-row mb-1">
                      
                      <div class="w-20"></div>

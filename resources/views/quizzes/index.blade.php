@@ -51,7 +51,7 @@
                             <div class="w-20 my-auto txt-10">{{$quiz->created_at->format('d-m-Y')}}</div>
                             <div class="w-15">
                                 <div class="flex flex-row justify-center">
-                                    <div><a href="#" class="hyper" ><i class="flaticon-bar-chart text-primary txt-10"></i></a></div>
+                                    <div><i class="flaticon-bar-chart text-primary txt-10" onclick="showStatModal('{{$quiz->id}}')"></i></div>
                                     &nbsp &nbsp
                                     <div><a href="#" class="hyper" ><i class="flaticon-gear text-success txt-10"></i></a></div>
                                     &nbsp &nbsp
@@ -69,9 +69,80 @@
     </div>
 @endsection
 
+@section('modal')
+  <!----------------------------------------------------------------------------
+									stat modal
+	------------------------------------------------------------------------------>
+
+	<div class="modal fade" id="statModal" role="dialog" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Quiz Statistics</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- modal body -->
+				<div class="modal-body">
+					<div class="container">
+                        <!-- statistics like average score, number of attempts -->
+                        <div class=" flex flex-row m-2">
+                            <div class="w-50 text-right txt-b">Total Marks: </div>
+                            <div class="w-20 text-center" id='total'></div>
+                        </div>
+                        <div class=" flex flex-row m-2">
+                            <div class="w-50 text-right txt-b">No. of Attempts: </div>
+                            <div class="w-20 text-center" id='numOfAttempts'></div>
+                        </div>
+                        <div class=" flex flex-row m-2">
+                            <div class="w-50 text-right txt-b">Avg. Score: </div>
+                            <div class="w-20 text-center" id='avg'></div>
+                        </div>
+                        <div class=" flex flex-row m-2">
+                            <div class="w-50 text-right txt-b">Avg. % age: </div>
+                            <div class="w-20 text-center" id='percent'></div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div> 
+	</div>
+	
+@endsection
+
+
 @section('script')
-   <script>
-      function del(id){
+<script>
+    
+    function showStatModal(quizId){
+         
+         //fetch list of unplanned subjects
+         $.ajax({
+            type:'get',
+            url:"./quiz/stat",   //two folder back
+            data:{
+               quizId:quizId,
+            },
+            success:function(response){
+               //
+               $('#total').html(response.total);
+               $('#numOfAttempts').html(response.numOfAttempts);
+               $('#avg').html(response.avg);
+               $('#percent').html(response.percent+" %");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+               Toast.fire({
+                  icon: 'warning',
+                  title: 'Some error',
+               });
+            }
+         });
+                
+         $('#statModal').modal('show');
+      }
+    
+    function del(id){
          var token = $("meta[name='csrf-token']").attr("content");
          
          //show sweet alert and confirm deletion

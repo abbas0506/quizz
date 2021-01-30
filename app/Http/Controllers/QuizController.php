@@ -129,5 +129,20 @@ class QuizController extends Controller
             return response()->json(['msg'=>$ex->getMessage()]);
         }
     }
+
+    public function stat(Request $request){
+        $request->validate([
+            'quizId' =>'required',
+        ]);
+        $quizId=$request->quizId;
+
+        $quiz=Quiz::findOrFail($quizId);
+        return response()->json([
+            'numOfAttempts'=>$quiz->attempts->count(),
+            'avg'=>$quiz->avg(),
+            'total'=>$quiz->marks(),
+            'percent'=>round($quiz->avg()/$quiz->marks()*100,1),
+        ]);
+    }
     
 }

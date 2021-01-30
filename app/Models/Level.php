@@ -19,5 +19,9 @@ class Level extends Model
     public function plans(){
         return $this->hasMany(Plan::class,'levelId');
     }
+    public function plansBySemesterId($semesterId)
+    {
+        return $this->plans->where('semesterNo', $semesterId);
+    }
     
 }

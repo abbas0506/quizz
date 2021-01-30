@@ -95,6 +95,7 @@ class PlanController extends Controller
 
         $subjects=Subject::whereNotIn('id', $plannedSubjectIds)->get();
         $subjectsHtml='';
+        
         foreach($subjects as $subject){
             $subjectsHtml.="<div class='flex flex-row'>
                                 <div class='w-20 text-center'><input type='checkbox' id='chksubject' value='".$subject->id."'></div>
