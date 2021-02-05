@@ -30,13 +30,12 @@ use App\Http\Controllers\PendingController;
 |
 */
 
-Route::view('/','welcome');
-Route::get('/usertype', [UserController::class, 'usertype']); 
-
+Route::view('/','users.signin');
 //user authorization
+
 Route::view('/signin','users.signin');
 Route::post('/signin', [UserController::class, 'signin']);
-Route::get('/signup', [UserController::class, 'create']);
+Route::get('/signup', [UserController::class, 'signup']);
 Route::post('/signup', [UserController::class, 'store']);
 Route::get('/signout',[UserController::class, 'signout']);
 Route::view('/signup_success', 'users.signup_success');

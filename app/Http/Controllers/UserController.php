@@ -30,14 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
-        if(session('usertype')=='student'){
-            $levels=Level::all();
-            return view('users.signup_students',compact('levels'));
-        }
-        if(session('usertype')=='teacher'){
-            return view('users.signup_teachers');
-        }
+        
         
     }
 
@@ -53,15 +46,15 @@ class UserController extends Controller
         */
 
         $request->validate([
+            'usertype'=>'required',
             'name' =>'required',
             'phone' => 'required',
             'password' => 'required',
             
             ]);
 
-        if(session('usertype')){
-            //try to save into parent users table
-            $userType=session('usertype');
+        //try to save into parent users table
+            $userType=$request->usertype;
             DB::beginTransaction();
             try{
                 $user=new User([
@@ -107,7 +100,7 @@ class UserController extends Controller
                 DB::rollBack();
                 return redirect('./signup')->with(['failure'=>$ex->getMessage()]);
             }
-        }
+        
         
     }
 
@@ -156,14 +149,7 @@ class UserController extends Controller
      * Save user access type,
      * required untill user gets signed in or signed up
      */ 
-    public function usertype(Request $request){
-        $request->validate([
-            'usertype' => 'required',
-        ]);
-        session(['usertype'=>$request->usertype]);
-        return redirect('./signin');
-    }
-
+    
     /*
      * Handle signin process
      * verify user credentials and direct to concerned page
@@ -204,11 +190,20 @@ class UserController extends Controller
             return redirect('/signin')->with('error',"Either phone or password invalid!");
         }
     }
+    
+    public function signup(){
+        $levels=Level::all();
+        return view('users.signup',compact('levels'));
+  
+    }  
+    
     /*
      * Handle signout process
      * dispose off session object
      */ 
-    public function signout(){
+    
+    
+     public function signout(){
         session()->flush();
         return redirect ('/');
     }
