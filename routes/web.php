@@ -50,7 +50,7 @@ Route::middleware([AdminAccess::class])->group(function(){
       Route::resource('plans', PlanController::class)->except(['create','edit']);
 
 });
-
+// helllo
 Route::middleware([TeacherAccess::class])->group(function(){
       Route::get('/teachers',[TeacherController::class, 'index']);
       Route::get('/quiz/stat',[QuizController::class, 'stat']);
