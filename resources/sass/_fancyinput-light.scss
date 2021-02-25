@@ -1,0 +1,72 @@
+.fancyinput-light{
+  position: relative;
+  label {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left:0px;
+    color: rgba(black,0.8);
+    transition: 0.5s;
+  }
+  input {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba($dark, 0.2);
+    outline: 0;
+    font-size: 1.0rem;
+    color: $white;
+    padding: 5px 0px;
+    background-color: transparent;
+    transition: border-color 0.2s;
+    
+    &::placeholder {
+      color: whitesmoke;
+    }
+  
+    &:not(:placeholder-shown) ~ label {
+      color:$dark;
+      top: -15px;
+      font-size: 0.8rem;
+      visibility: visible;
+      transition: 0.5s;
+      cursor: text;
+    }
+  
+    &:focus{
+      border-bottom: 1px solid $secondary;
+      transition: border-color 0.5s;
+    }
+  }
+  
+  select{
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba($dark, 0.2);
+    outline: 0;
+    font-size: 1.0rem;
+    color: $white;
+    padding: 5px 0px;
+    background-color: transparent;
+    transition: border-color 0.2s;
+    
+    option{
+      background-color: rgba($blue,0.5);
+      color:$dark;
+    }
+    
+  }
+
+  .selected ~ label{
+    color:$dark;
+    top: -15px;
+    font-size: 0.8rem;
+    visibility: visible;
+    transition: 0.5s;
+  }
+}
+
+  
+
+

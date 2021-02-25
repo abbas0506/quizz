@@ -184,10 +184,10 @@ class UserController extends Controller
                 }
                 
             }else{
-                return redirect('/signin')->with('error',"Either phone or password invalid!");
+                return redirect('/')->with('error',"Either phone or password invalid!");
             }
         }else {
-            return redirect('/signin')->with('error',"Either phone or password invalid!");
+            return redirect('/')->with('error',"Either phone or password invalid!");
         }
     }
     

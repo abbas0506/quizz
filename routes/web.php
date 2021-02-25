@@ -29,8 +29,8 @@ use App\Http\Controllers\PendingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::view('/','users.signin');
+Route::view('test','test');
+Route::view('/','index');
 //user authorization
 
 Route::view('/signin','users.signin');

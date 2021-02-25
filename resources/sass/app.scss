@@ -6,3 +6,13 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//my own gerneal styles
+@import 'mystyle';
+@import 'responsive';
+@import 'fancyinput-dark';
+@import 'fancyinput-light';
+
+//page specific styles
+@import 'home';
+

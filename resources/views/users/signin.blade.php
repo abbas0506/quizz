@@ -1,6 +1,7 @@
 @extends("layout")
 @section('page')
-   <div class="flex-container-centered h-100 p-4">
+   <div class="bg-image h-100 w-100"></div>
+   <div class="flex-container-centered h-100 w-100 p-4" style="position:absolute; top:0px; left:0px">
       <div class="w-30 auto-expand">
          <form method='post' action="./signin">
             @csrf
