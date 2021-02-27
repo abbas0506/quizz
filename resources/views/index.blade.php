@@ -1,6 +1,13 @@
 @extends("layout")
 @section('page')
-   
+   <style>
+      body {
+         font-family: 'Nunito';
+         opacity:0.75; 
+         background-color:black;
+      }
+
+   </style>
    <div class="home__background"></div>
    <div class="home__page flex-container-center justify-space-arround auto-col">
       
