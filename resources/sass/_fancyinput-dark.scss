@@ -6,7 +6,7 @@
   position: absolute;
   top: 0;
   left:0px;
-  color: $grey;
+  color: $green;
 } 
 
 .fancyinput-dark input {
@@ -31,7 +31,7 @@
   }
 
   &:not(:placeholder-shown) ~ label {
-    color:$primary;
+    color:$green;
     top: -15px;
     font-size: 0.75rem;
     visibility: visible;
@@ -40,7 +40,7 @@
   }
 
   &:focus{
-    border-bottom: 1px solid $primary;
+    border-bottom: 1px solid $green;
     transition: border-color 0.5s;
   }
 }

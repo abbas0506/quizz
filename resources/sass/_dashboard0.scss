@@ -1,9 +1,9 @@
 @use 'variables';
 
 $header-height:13vh;
-$menubar-width:60px;
-$menu-text-color:silver;
-$menu-text-color-hover: $secondary;
+$min-width:70px;
+$max-width: 200px;
+
 .dashboard{
    width:100%;
    min-height:100vh;
@@ -51,48 +51,60 @@ $menu-text-color-hover: $secondary;
    &__menu{
       display: flex;
       flex-direction: column;
-      float:left;
+      width: $min-width;
       position: absolute;
-      width: $menubar-width;
+      top:$header-height;
+      left:0px;
+      
       min-height: 100vh - $header-height;
       background-color:$primary;
+      color:silver;
       z-index: 1;
-      transition: 0.5s ease;
+      transition: 0.5s;
       
       .menu-item{
 
          display: flex;
          flex-direction: row;
+         min-width: $min-width;
          padding:10px 0px;
+         
          .icon{
-            min-width: $menubar-width;
+            min-width: $min-width;
             text-align: center;
             font-size: 1.2rem;
-            color:$menu-text-color;
+            
          }
          .icon-desc{
-            visibility: hidden;
-            color:$menu-text-color;
+            position: absolute;
+            left:$min-width - 40px;
+            min-width: $max-width - $min-width;
+            color: transparent;
             font-size: 0.8rem;
             padding-top: 8px;
-         }
-         //menu item hover
-         &:hover{
-            .icon, .icon-desc{
-               color:$menu-text-color-hover;
-               transition: 0.5s ease;
-            }
+            transition: 0.5s ease;
          }
       }
-
-      //menubar hover
-      &:hover{
-         width:$menubar-width*3;   //expand
-         transition: 0.5s ease;
       
-         .icon-desc{
-            visibility: visible;
+      
+   }
+   
+   &__menu-expanded{
+      
+      min-width:$max-width;   //expand
+      // transition: 1s ease;
+      .menu-item{
+         
+         .icon{
+            min-width: $min-width;
+            
          }
+         .icon-desc{
+            left:$min-width;
+            transition: 0.5s ease;
+            color: inherit;
+         }
+         
       }
       
    }
@@ -102,9 +114,6 @@ $menu-text-color-hover: $secondary;
    }
  
 }
-
-.active {
-      .icon, .icon-desc{
-         color:$menu-text-color-hover !important;
-      }
-   }
+.menu-active{
+   color:$secondary ;
+}

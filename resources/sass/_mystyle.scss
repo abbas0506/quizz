@@ -211,3 +211,17 @@ body {
    
    transition: 0.5s;
 }
+.badge-super{
+   position: relative;
+   height: 20px;
+  width: 20px;
+  background-color: $primary;
+  color:$secondary;
+  border-radius: 50%;
+  display: inline-block;
+  
+   top:-10px;
+   left:-10px;
+   font-size: 0.8rem;
+   text-align: center;
+}
