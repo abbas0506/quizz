@@ -1,93 +1,87 @@
 @extends("layout")
-@section('header') 
-   
-   <div class="border-bottom text-center p-2 border-success bg-grey" id='header'>
-      <div class="text-success txt-40"><i class="flaticon-open-magazine"></i></div>
-      <div class="txt-b">Subjects</div>
-   </div>
-
-@endsection
-
 @section('page')
-   <div class="p-2 text-center"><button type="button" class="btn btn-info btn-lg text-light rounded-50" data-toggle="modal" data-target="#createModal">+</button></div>
-   <div class="flex-container-centered h-70 p-4">
-      <div class="w-70 auto-expand">
-         
-         <div class="txt-b ml-2">How to use?</div>
-         <div class="txt-10 ml-2">
-            <ul>
-               <li><i class="flaticon-plus text-info"></i> Create new subject </li>
-               <li><i class="flaticon-pencil text-success txt-10"></i> Edit subject </li>
-               <li><i class="flaticon-trash text-danger"></i> Delete subject </li>
-            </ul>   
-
-         </div>
-
-         <!-- footer -->
-         <div class="text-right p-2">
-            <div id='finish' class='txt-10'>After adding all subjects, click on finsh button <button class="btn btn-danger btn-sm" onclick="window.location.href='./home'">Finish</button></div>
-         </div>
-         
-         @if ($errors->any())
-         <div class="alert alert-danger">
-            <ul>
-               @foreach ($errors->all() as $error)
-               <li>{{ $error }}</li>
-               @endforeach
-            </ul>
-         </div>
-         <br />
-         @elseif(session('success'))
-         <script>
-            Swal.fire({
-               icon: 'success',
-               text: "{{session('success')}}",
-               showConfirmButton: false,
-               timer:3000
-            });
-         </script>
-         @elseif(session('error'))
-         <script>
-            Swal.fire({
-               icon: 'error',
-               text: "{{session('error')}}",
-               showConfirmButton: false,
-               timer:3000
-            });
-         </script>
-         @endif
-         
-         <!-- Table Header -->
-         <div class="m-2 bg-primary text-light p-2">
-         <div class="flex flex-row">
-               <div class="w-90 txt-b my-auto">Subject</div>
-               <div class="w-10 text-center"><i class="flaticon-menu text-success txt-10"></i></div>
-         </div>
-         </div>
-         
-         <!-- display most recent subects on top -->
-         @foreach($subjects as $subject)
-         <div class="m-2 bg-grey p-2">
-            <!-- Table body -->
-            <div class="flex flex-row">
-               <div class="w-90 my-auto">{{$subject->name}}</div>
-               <div class="w-10">
-                  <div class="flex flex-row justify-space-around">
-                     <div><a href="{{route('subjects.edit', $subject->id)}}" class="hyper" ><i class="flaticon-pencil text-success txt-10"></i></a></div>
-                     <div onclick="del('{{$subject->id}}')"><i class="flaticon-trash text-danger txt-10"></i></div>
+   <x-app__header/>
+   <x-sidebar__teacher/>
+   <div class='page-content'>
+      <div class='flex flex-row p-3 txt-20 bg-light border rounded sticky'>
+         <div class='mr-auto my-auto'>Subjects</div>
+         <div data-toggle="modal" data-target="#createModal"><i class='flaticon-plus text-info txt-l'></i></div>
+      </div>
+      
+      <!-- <div class='flex-container-center bg-light border rounded mt-5 p-3'>
+         <div class="w-70 auto-expand"> -->
+            
+            @if ($errors->any())
+            <div class="alert alert-danger">
+               <ul>
+                  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+               </ul>
+            </div>
+            <br />
+            @elseif(session('success'))
+            <script>
+               Swal.fire({
+                  icon: 'success',
+                  text: "{{session('success')}}",
+                  showConfirmButton: false,
+                  timer:3000
+               });
+            </script>
+            @elseif(session('error'))
+            <script>
+               Swal.fire({
+                  icon: 'error',
+                  text: "{{session('error')}}",
+                  showConfirmButton: false,
+                  timer:3000
+               });
+            </script>
+            @endif
+            
+            <!-- display most recent subects on top -->
+            @foreach($subjects as $subject)
+            <div class="mt-2 bg-light border p-3 rounded">
+               <!-- Table body -->
+               <div class="flex flex-row">
+                  <div class="my-auto mr-auto">{{$subject->name}}</div>
+                  <div class='w-8'>
+                     <div class="flex justify-space-around">
+                        <div><a href="{{route('subjects.edit', $subject->id)}}" class="hyper" ><i class="flaticon-pencil text-success txt-10"></i></a></div>
+                        <div onclick="del('{{$subject->id}}')"><i class="flaticon-trash text-danger txt-10"></i></div>
+                     </div>
                   </div>
                </div>
-            </div> 
+               <div class="flex mt-2">
+                  <div class='flex flex-col align-items-center w-20 '>
+                     <div class='txt-s txt-teal'>Total</div>
+                     <div>2000</div>
+                  </div>
+                  <div class='flex flex-col align-items-center w-20 '>
+                     <div class='txt-s txt-teal'>Your Q.</div>
+                     <div>2000</div>
+                  </div>
+                  <div class='flex flex-col align-items-center w-20 '>
+                     <div class='txt-s txt-teal'>Quizzes</div>
+                     <div>2000</div>
+                  </div>
+                  <div class='flex flex-col align-items-center w-20 '>
+                     <div class='txt-s txt-teal'>Emrollment</div>
+                     <div>2000</div>
+                  </div>
+                  
+               </div> 
+               
+            </div>
+            
+            @endforeach
+            
             
          </div>
          
-         @endforeach
-         
-         
-      </div>
-      
-   </div>
-
+      <!-- </div>
+   </div> -->
 @endsection
 @section('modal')
    <!----------------------------------------------------------------------------

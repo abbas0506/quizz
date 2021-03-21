@@ -53,6 +53,7 @@ Route::middleware([AdminAccess::class])->group(function(){
 
 Route::middleware([TeacherAccess::class])->group(function(){
       Route::get('/teachers',[TeacherController::class, 'index']);
+      Route::resource('subjects', SubjectController::class)->except(['create']);
       Route::get('/quiz/stat',[QuizController::class, 'stat']);
       Route::resource('quizzes', QuizController::class);
       Route::resource('questions', QuestionController::class);

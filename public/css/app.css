@@ -11018,7 +11018,7 @@ body {
 }
 
 .justify-center {
-  justify-content: center;
+  align-content: center;
 }
 
 .justify-end {
@@ -11027,6 +11027,10 @@ body {
 
 .justify-space-around {
   justify-content: space-around;
+}
+
+.justify-space-between {
+  justify-content: space-between;
 }
 
 .flex-container-center {
@@ -11039,6 +11043,10 @@ body {
 
 .w-5 {
   width: 5%;
+}
+
+.w-8 {
+  width: 8%;
 }
 
 .w-10 {
