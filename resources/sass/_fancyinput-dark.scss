@@ -1,47 +1,49 @@
 .fancyinput-dark {
-  position: relative;
+   position: relative;
+
+   label {
+      position: absolute;
+      top: 0;
+      left:0px;
+      color: $green;
+   } 
+   
+   input {
+      font-family: inherit;
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid $grey;
+      outline: 0;
+      font-size: 1.0rem;
+      color: $white;
+      padding: 5px 0px;
+      background-color: transparent;
+      transition: border-color 0.2s;
+      
+      &::placeholder {
+        color: $grey;
+      }
+    
+      &:placeholder-shown ~ label {
+        visibility: hidden;
+        transition: 0.2s;
+      }
+    
+      &:not(:placeholder-shown) ~ label {
+        color:$green;
+        top: -15px;
+        font-size: 0.75rem;
+        visibility: visible;
+        transition: 0.5s;
+        cursor: text;
+      }
+    
+      &:focus{
+        border-bottom: 1px solid $green;
+        transition: border-color 0.5s;
+      }
+   }
 }
 
-.fancyinput-dark label {
-  position: absolute;
-  top: 0;
-  left:0px;
-  color: $green;
-} 
 
-.fancyinput-dark input {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid $grey;
-  outline: 0;
-  font-size: 1.0rem;
-  color: $white;
-  padding: 5px 0px;
-  background-color: transparent;
-  transition: border-color 0.2s;
-  
-  &::placeholder {
-    color: $grey;
-  }
-
-  &:placeholder-shown ~ label {
-    visibility: hidden;
-    transition: 0.2s;
-  }
-
-  &:not(:placeholder-shown) ~ label {
-    color:$green;
-    top: -15px;
-    font-size: 0.75rem;
-    visibility: visible;
-    transition: 0.5s;
-    cursor: text;
-  }
-
-  &:focus{
-    border-bottom: 1px solid $green;
-    transition: border-color 0.5s;
-  }
-}
 

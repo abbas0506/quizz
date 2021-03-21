@@ -16,4 +16,12 @@
    .home__page .overlay ul li{
       font-size:1.2rem !important;
    }
+
+   .auto-shrink{ 
+      height: 40px;
+      width:40px;
+   }
+   .sidebar{
+      width: $menubar-width - 20px !important;
+   }
 }

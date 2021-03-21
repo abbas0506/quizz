@@ -1,0 +1,46 @@
+@use 'variables';
+
+$header-height:12vh;
+  
+  .app-header{
+      display: flex;
+      flex-direction: row;
+      height: $header-height;
+      padding-left:20px;
+      padding-right:10px;
+      background-color:$foundation;
+      box-shadow: 0 0 100px rgba(0, 0, 0, 0.12);
+      .app-name{
+         width:20%;
+         font-size: 1.5rem;
+         font-weight: bold;
+         margin-top: auto;
+         margin-bottom: auto;
+         color:$primary;
+      }
+      .current-user{
+         display:felx;
+         flex-direction: row;
+         width:80%;
+         padding-right: 10px;
+         margin-top: auto;
+         margin-bottom: auto;
+         text-align: right;
+
+         .user-name{
+            font-size: 1rem;
+         }
+         .user-image{
+            width:25px;
+            height: 25px;
+            border-radius: 50px;
+            margin-top: auto;
+            margin-bottom: auto;
+         }
+
+      }
+   }
+      
+
+
+   

@@ -1,69 +1,35 @@
 @extends("layout")
 @section('page')
-   <div class="dashboard">
-      <div class="dashboard__header">
-         <div class="app-name">SoftQuizz</div>
-         <div class="current-user">
-            <span><i class="flaticon-bell"></i></span>
-            <span class="badge-super">6</span>
-            <span class="user-name" >Greetings, teacher</span>
-            <span id='element'
-               data-container="body" data-toggle="popover" data-placement="bottom" 
-               data-content="
-               <div>Profile</div><div><a href='#'>Signout</a></div>" data-html="true">
-               <img class='user-image' src="/images/teacher.jpg" alt="">
-            </span>
-
-         </div>
-      </div>
-
-      <div class="dashboard__menu" id='menu'>
-         <div class="menu-item active"><div class="icon"><i class="flaticon-browser"></i></div><div class="icon-desc">Home</div></div>
-         <div class="menu-item"><div class="icon"><i class="flaticon-open-magazine"></i></div><div class="icon-desc">Subjects</div></div>
-         <div class="menu-item"><div class="icon"><i class="flaticon-group"></i></div><div class="icon-desc">Groups</div></div>
-         <div class="menu-item"><div class="icon"><i class="flaticon-exam"></i></div><div class="icon-desc">Test</div></div>
-         <div class="menu-item"><div class="icon"><i class="flaticon-bar-chart"></i></div><div class="icon-desc">Analysis</div></div>
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      <div class="flex-container-center h-80">
-         <div>Hello it is my div</div>
-      </div>
-
-
-
-
-
-
-   </div>
-@endsection
-@section('script')
-   <script lang="">
-
-$('#element').popover('show')
-      // $('.menu-item').mouseover(function(){
-      //    $('#menu').addClass('dashboard__menu-expanded');
-      //    if(!$(this).hasClass('active')){
-      //       $(this).addClass('menu-active');
-      //    }
+   <div class='w-100 h-100'>
+      <x-app__header/>
+      <x-sidebar__teacher/>
+      <div class='page-content'>
+         <div class='p-3 txt-20 bg-light border rounded'>Profile</div>
+         <div class='flex-container-center bg-light border rounded mt-5 p-3 has-relative-icon auto-col'>
+            <i class="flaticon-pencil top-right txt-m txt-teal"></i>
             
-         
-      // });
-
-      // $('.menu-item').mouseout(function(){
-      //    $('#menu').removeClass('dashboard__menu-expanded');
-      //    if(!$(this).hasClass('active')){
-
-      //       $(this).removeClass('menu-active');
-      //    }
-      // });
-
-
-   </script>
-
+            <div class="flex flex-row w-30 auto-expand justify-center">
+               <img src="/images/teacher.jpg" alt="" class="rounded-circle img-l auto-shrink">
+            </div>
+               
+               <div class='flex flex-col w-70 auto-expand'>
+                  
+                     <div class='lbl-s txt-teal'>Name</div>
+                     <div class='txt-m mb-2' >Muhammad Abbas</div>
+                     <div class='lbl-s'>Designation</div>
+                     <div class='txt-m mb-2' >Subject Specialist</div>
+                     <div class='lbl-s'>Phone</div>
+                     <div class='txt-m mb-2' >03424930066</div>
+                     <div class='lbl-s'>Email</div>
+                     <div class='txt-m mb-2' >abbas.sscs@gmail.com</div>
+                     <div class='lbl-s'>Address</div>
+                     <div class='txt-m mb-2' >Govt. Higher Secondary School Chak Bedi, Pakpattan</div>
+                  
+               </div>
+            
+            </div>
+               
+      </div>
+      
+   </div>
 @endsection

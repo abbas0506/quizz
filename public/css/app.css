@@ -10932,6 +10932,11 @@ body {
   color: green;
 }
 
+.page-content {
+  padding: 3%;
+  margin-left: 5%;
+}
+
 /* text related css */
 
 .txt-8 {
@@ -10988,6 +10993,10 @@ body {
 
 .txt-grey {
   color: grey;
+}
+
+.txt-teal {
+  color: teal;
 }
 
 /* flex related css */
@@ -11098,6 +11107,21 @@ body {
   width: 25px;
 }
 
+.lbl-s {
+  color: teal;
+  font-size: 0.7rem;
+}
+
+.img-s {
+  height: 25px;
+  width: 25px;
+}
+
+.img-l {
+  height: 150px;
+  width: 150px;
+}
+
 /* height related css */
 
 .h-10 {
@@ -11170,6 +11194,10 @@ body {
   display: none;
 }
 
+.has-relative-icon {
+  position: relative;
+}
+
 .top-left {
   /* parent div must have relative position */
   position: absolute;
@@ -11177,11 +11205,11 @@ body {
   top: -16px;
 }
 
-.top-right-corner {
+.top-right {
   /* parent div must have relative position */
   position: absolute;
-  right: 0px;
-  top: -5px;
+  right: 5px;
+  top: 5px;
 }
 
 .icon-top-center {
@@ -11241,6 +11269,15 @@ body {
 
   .home__page .overlay ul li {
     font-size: 1.2rem !important;
+  }
+
+  .auto-shrink {
+    height: 40px;
+    width: 40px;
+  }
+
+  .sidebar {
+    width: 40px !important;
   }
 }
 
@@ -11513,23 +11550,17 @@ body {
   transition: 1s;
 }
 
-.dashboard {
-  width: 100%;
-  min-height: 100vh;
-  background-color: white;
-}
-
-.dashboard__header {
+.app-header {
   display: flex;
   flex-direction: row;
-  height: 13vh;
+  height: 12vh;
   padding-left: 20px;
   padding-right: 10px;
   background-color: white;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.12);
 }
 
-.dashboard__header .app-name {
+.app-header .app-name {
   width: 20%;
   font-size: 1.5rem;
   font-weight: bold;
@@ -11538,7 +11569,7 @@ body {
   color: #23615e;
 }
 
-.dashboard__header .current-user {
+.app-header .current-user {
   display: felx;
   flex-direction: row;
   width: 80%;
@@ -11548,71 +11579,67 @@ body {
   text-align: right;
 }
 
-.dashboard__header .current-user .user-name {
+.app-header .current-user .user-name {
   font-size: 1rem;
 }
 
-.dashboard__header .current-user .user-image {
-  height: 25px;
+.app-header .current-user .user-image {
   width: 25px;
+  height: 25px;
   border-radius: 50px;
   margin-top: auto;
   margin-bottom: auto;
 }
 
-.dashboard__menu {
+.sidebar {
   display: flex;
   flex-direction: column;
   float: left;
   position: absolute;
   width: 60px;
-  min-height: 87vh;
+  min-height: 88vh;
   background-color: #23615e;
   z-index: 1;
   transition: 0.5s ease;
 }
 
-.dashboard__menu .menu-item {
+.sidebar .menu-item {
   display: flex;
   flex-direction: row;
   padding: 10px 0px;
 }
 
-.dashboard__menu .menu-item .icon {
+.sidebar .menu-item .icon {
   min-width: 60px;
   text-align: center;
   font-size: 1.2rem;
   color: silver;
 }
 
-.dashboard__menu .menu-item .icon-desc {
+.sidebar .menu-item .icon-desc {
   visibility: hidden;
   color: silver;
   font-size: 0.8rem;
   padding-top: 8px;
 }
 
-.dashboard__menu .menu-item:hover .icon,
-.dashboard__menu .menu-item:hover .icon-desc {
+.sidebar .menu-item:hover .icon,
+.sidebar .menu-item:hover .icon-desc {
   color: #def2f1;
   transition: 0.5s ease;
 }
 
-.dashboard__menu:hover {
+.sidebar:hover {
   width: 180px;
   transition: 0.5s ease;
 }
 
-.dashboard__menu:hover .icon-desc {
+.sidebar:hover .icon-desc {
   visibility: visible;
 }
 
-.dashboard__container {
-  box-shadow: inset 0 0 10px gray;
-}
-
-.active .icon,
-.active .icon-desc {
+.menu-item-active .icon,
+.menu-item-active .icon-desc {
   color: #def2f1 !important;
 }
 
