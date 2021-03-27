@@ -22,8 +22,5 @@
       @yield('modal')
       @yield('script')
    </body>
-
-    
-    
 </html>
 

@@ -3,15 +3,11 @@
    <x-app__header/>
    <x-teachers__sidebar/>
    <div class='page-content'>
-      <div class='flex flex-row p-3 txt-20 bg-light border rounded sticky'>
-         <div class='mr-auto my-auto'>Subjects</div>
-         <div data-toggle="modal" data-target="#createModal"><i class='flaticon-plus text-info txt-l'></i></div>
-      </div>
-      
-      <!-- <div class='flex-container-center bg-light border rounded mt-5 p-3'>
-         <div class="w-70 auto-expand"> -->
-            
-            @if ($errors->any())
+           
+      <!-- display error msg if any -->
+      @if ($errors->any())
+      <div class='flex-container-center bg-light border rounded mt-5 p-3'>
+         <div class="w-70 auto-expand">
             <div class="alert alert-danger">
                <ul>
                   @foreach ($errors->all() as $error)
@@ -38,51 +34,63 @@
                   timer:3000
                });
             </script>
-            @endif
-            
-            <div id="subject-data">
-            <!-- display most recent subects on top -->
-            @foreach($subjects as $subject)
-            <div class="mt-2 bg-light border p-3 rounded">
-               <!-- Table body -->
-               <div class="flex flex-row" >
-                  <div class="my-auto mr-auto"> 
-                     <a href='#s-{{$subject->id}}' data-toggle='collapse'>{{$subject->name}}</a>
-                  </div>
-                  <!-- <div class="my-auto mr-auto txt-b" data-toggle='collapse' data-target='#{{$subject->id}}}'>{{$subject->name}}</div> -->
-                  <div class='w-8'>
-                     <div class="flex justify-space-around">
-                        <div><a href="{{route('subjects.edit', $subject->id)}}" class="hyper" ><i class="flaticon-pencil text-success txt-10"></i></a></div>
-                        <div onclick="del('{{$subject->id}}')"><i class="flaticon-trash text-danger txt-10"></i></div>
-                     </div>
-                  </div> 
-               </div>
-               <div class="flex mt-2 collapse" id='s-{{$subject->id}}' data-parent="#subject-data">
-                  <div class='flex flex-col align-items-center w-30 '>
-                     <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                     <div>2000</div>
-                  </div>
-                  
-                  <div class='flex flex-col align-items-center w-30 '>
-                     <div class='txt-m txt-teal'><i class='flaticon-exam'></i></div>
-                     <div>2000</div>
-                  </div>
-                  <div class='flex flex-col align-items-center w-30 '>
-                     <div class='txt-m txt-teal'><i class='flaticon-group'></i></div>
-                     <div>2000</div>
-                  </div>
-                  
-               </div> 
-               
-            </div>
-            
-            @endforeach
-            </div>
-            
          </div>
-         
-      <!-- </div>
-   </div> -->
+      </div>
+      
+      @endif
+      <div id="selectedSubjects">
+         <div class='flex flex-row p-3 txt-20 bg-light border rounded'>
+            <div class='mr-auto my-auto'>Subjects</div>
+            <div><i class='flaticon-plus text-info txt-l hyper' onclick="showOrHideRemSubjects()"></i></div>
+         </div>
+         <!-- display most recent subects on top -->
+         @foreach($subjects as $subject)
+         <div class="mt-2 bg-light border p-3 rounded">
+            <!-- Table body -->
+            <div class="flex flex-row" >
+               <div class="my-auto mr-auto"> 
+                  <a href='#s-{{$subject->id}}' data-toggle='collapse'>{{$subject->name}}</a>
+               </div>
+               <div onclick="del('{{$subject->id}}')"><i class="flaticon-cancel text-danger txt-10"></i></div>
+            </div>
+                  
+            <div class="flex-container-center mt-2 collapse justify-content-around" id='s-{{$subject->id}}' data-parent="#selectedSubjects">
+               <div class='flex flex-col'>
+                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
+                  <div class="txt-s">2000</div>
+               </div>
+                     
+               <div class='flex flex-col'>
+                  <div class='txt-m txt-teal'><i class='flaticon-exam'></i></div>
+                  <div class="txt-s">2000</div>
+               </div>
+               <div class='flex flex-col'>
+                  <div class='txt-m txt-teal'><i class='flaticon-group'></i></div>
+                  <div class="txt-s">2000</div>
+               </div>
+            </div> 
+         </div>
+         @endforeach
+      </div>
+
+      <!-- remaining subject list -->
+      <div id="remainingSubjects" class="hidden">
+         <div class='flex flex-row p-3 txt-20 bg-light border rounded'>
+            <div class='mr-auto my-auto'>Choose one subject</div>
+            <div><i class='flaticon-cancel txt-grey hyper txt-m' onclick="showOrHideRemSubjects()"></i></div>
+         </div>
+         <div class="flex flex-row rounded p-3 hover-teal mt-1">
+               <div class="txt-m mr-auto">Subject</div>
+               <div class="txt-m txt-b text-success"><i class="flaticon-tick"></i></div>
+               
+         </div>
+         <div class="flex flex-row rounded p-3 hover-teal mt-1">
+               <div class="txt-m mr-auto">Subject</div>
+               <div class="txt-m txt-b text-success"><i class="flaticon-tick"></i></div>
+               
+         </div>
+      </div>
+   </div>
 @endsection
 @section('modal')
    <!----------------------------------------------------------------------------
@@ -120,6 +128,18 @@
 
 @section('script')
    <script>
+      function showOrHideRemSubjects(){
+         
+         $('#remainingSubjects').toggle();
+         $('#selectedSubjects').toggle();
+         //fetch subject which have not been selected already
+         //load subjects into droplist
+         //show modal
+      }
+      function addSubjectAndRefreshPage(){
+      
+      }
+      
       function del(id){
          var token = $("meta[name='csrf-token']").attr("content");
          

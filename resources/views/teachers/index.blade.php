@@ -2,7 +2,7 @@
 @section('page')
    <div class='w-100 h-100'>
       <x-app__header/>
-      <x-sidebar__teacher/>
+      <x-teachers__sidebar/>
       <div class='page-content'>
          <div class='p-3 txt-20 bg-light border rounded'>Profile</div>
          <div class='flex-container-center bg-light border rounded mt-5 p-3 has-relative-icon auto-col'>

@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 use App\Models\User;
 use App\Models\Teacher;
-use App\Models\Level;
+use App\Models\Grade;
 use App\Models\Subject;
 
 class DatabaseSeeder extends Seeder
@@ -21,15 +21,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        User::create(['name' => 'admin','phone'=>'admin','password'=>'123','type'=>'admin']);
-        User::create(['name' => 'abbas','phone'=>'03424930066','password'=>'123','type'=>'teacher']);
-        Teacher::create(['userId' => '2']);
+        User::create(['id' => 'admin','password'=>'admin','usertype'=>'admin']);
+        User::create(['id' => 'abbas','password'=>'123','usertype'=>'teacher']);
+        Teacher::create(['name' => 'abbas','phone'=>'03424930066','user_id'=>'abbas']);
 
-        Level::create(['name' => 'ADPCS','numOfSemesters'=>'4']);
-        Level::create(['name' => 'BSCS','numOfSemesters'=>'8']);
+        Grade::create(['name' => 'XI-A']);
+        Grade::create(['name' => 'XI-B']);
        
         Subject::create(['name' => 'OOP']);
         Subject::create(['name' => 'DBS']);
         Subject::create(['name' => 'COAL']);
+        Subject::create(['name' => 'CSA']);
     }
 }

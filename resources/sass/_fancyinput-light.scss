@@ -1,11 +1,11 @@
-.fancyinput-light{
+.fancyinput-light {
     position: relative;
     label {
         visibility: hidden;
         position: absolute;
         top: 0;
-        left:0px;
-        color: rgba(black,0.8);
+        left: 0px;
+        color: $light-teal;
         transition: 0.5s;
     }
     input {
@@ -19,27 +19,23 @@
         padding: 5px 0px;
         background-color: transparent;
         transition: border-color 0.2s;
-
         &::placeholder {
-            color: whitesmoke;
+            color: $light-teal;
         }
-
-        &:not(:placeholder-shown) ~ label {
-            color:$dark;
+        &:not(:placeholder-shown)~label {
+            color: $light-teal;
             top: -15px;
             font-size: 0.8rem;
             visibility: visible;
             transition: 0.5s;
             cursor: text;
         }
-
-        &:focus{
-            border-bottom: 1px solid $secondary;
+        &:focus {
+            border-bottom: 1px solid $light-teal;
             transition: border-color 0.5s;
         }
     }
-
-    select{
+    select {
         font-family: inherit;
         width: 100%;
         border: 0;
@@ -50,23 +46,16 @@
         padding: 5px 0px;
         background-color: transparent;
         transition: border-color 0.2s;
-
-        option{
-            background-color: rgba($blue,0.5);
-            color:$dark;
+        option {
+            background-color: rgba($blue, 0.5);
+            color: $dark;
         }
-
     }
-
-    .selected ~ label{
-        color:$dark;
+    .selected~label {
+        color: $light-teal;
         top: -15px;
         font-size: 0.8rem;
         visibility: visible;
         transition: 0.5s;
     }
 }
-
-
-
-

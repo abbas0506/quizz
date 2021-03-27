@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
-use App\Models\Level;
+use App\Models\Grade;
 use App\Models\Teacher;
 
 class UserController extends Controller
@@ -45,63 +45,6 @@ class UserController extends Controller
         * so write code for each user's signup
         */
 
-        $request->validate([
-            'usertype'=>'required',
-            'name' =>'required',
-            'phone' => 'required',
-            'password' => 'required',
-            
-            ]);
-
-        //try to save into parent users table
-            $userType=$request->usertype;
-            DB::beginTransaction();
-            try{
-                $user=new User([
-                    'name'=>$request->name,
-                    'phone'=>$request->phone,
-                    'password'=>$request->password,
-                    'type'=>$userType,
-
-                ]);
-                
-                $user->save();
-                
-                //if student
-                if($userType=='student'){
-                    $student=new Student([
-                        'userId'=>$user->id,
-                        'levelId'=>$request->levelId,
-                        'semesterNo'=>$request->semesterNo,
-                        'rollNo'=>$request->rollNo,
-                        ]);
-                    
-                    $student->save();
-    
-                }
-                
-                //if teacher
-                if($userType=='teacher'){
-                    $teacher=new Teacher([
-                        'userId'=>$user->id,
-                        ]);
-                    
-                    $teacher->save();
-    
-                }
-                session([
-                    'role'=>$user->type,
-                    'userId'=>$user->id,
-                ]);
-                DB::commit();
-                return redirect('./signup_success');
-            
-            }catch(Exception $ex){
-                DB::rollBack();
-                return redirect('./signup')->with(['failure'=>$ex->getMessage()]);
-            }
-        
-        
     }
 
     /**
@@ -156,44 +99,97 @@ class UserController extends Controller
      */ 
     public function signin(Request $request){
         $request->validate([
-            'phone' => 'required',
+            'id' => 'required',
             'password' => 'required'
         ]);
         
-        $phone=$request->phone;
-        $user=User::where('phone','=', $phone)->first();
+        $user=User::where('id','=', $request->id)
+            ->where('password','=',$request->password)
+            ->first();
         
         if($user){
-            if($request->password==$user->password){
-                //authenticated
-                session(['userId' => $user->id]);
-                
-                if($user->type=='student'){
-                    session(['role'=>'student']);
-                    return redirect('./students');
-                }
-                    
-                if($user->type=='teacher'){
-                        session(['role'=>'teacher']);
-                        return redirect('./teachers');
-                    }
-                    
-                if($user->type=='admin'){
-                    session(['role'=>'admin']);
-                    return redirect('./home');
-                }
-                
-            }else{
-                return redirect('/')->with('error',"Either phone or password invalid!");
-            }
+            //authenticated, save into session
+            session([
+                'user_id' => $user->id,
+                'usertype' => $user->usertype,
+                ]);
+            
+            if($user->usertype=='student') return redirect('./students');
+            if($user->usertype=='teacher') return redirect('./teachers');
+            if($user->usertype=='admin') return redirect('./home');
+            
         }else {
-            return redirect('/')->with('error',"Either phone or password invalid!");
+            return redirect('/')->with('error',"Either ID or password invalid!");
         }
     }
     
-    public function signup(){
-        $levels=Level::all();
-        return view('users.signup',compact('levels'));
+    public function signup(Request $request){
+        $request->validate([
+            'name' =>'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'usertype'=>'required',
+            ]);
+
+        //try to save into parent users table
+            
+        DB::beginTransaction();
+        try{
+            $user=new User([
+                'id'=>$request->phone,
+                'password'=>$request->password,
+                'usertype'=>$request->usertype,
+
+            ]);
+                
+            $user->save();
+            
+            //if student
+            if($request->usertype=='student'){
+                $student=new Student([
+                    'name'=>$request->name,
+                    'phone'=>$request->phone,
+                    'grade_id'=>$request->grade_id,
+                    'section'=>$request->section,
+                    'rollNo'=>$request->rollNo,
+                    'user_id'=>$request->phone,
+                    ]);
+                    
+                $student->save();
+    
+            }
+                
+            //if teacher
+            if($request->usertype=='teacher'){
+                $teacher=new Teacher([
+                    'name'=>$request->name,
+                    'phone'=>$request->phone,
+                    'email'=>$request->email,
+                    'user_id'=>$request->phone,
+                    ]);
+                    
+                $teacher->save();
+    
+            }
+            
+            session([
+                'role'=>$request->usertype,
+                'user_id'=>$request->phone,
+            ]);
+            DB::commit();
+            
+            //return response()->json(['msg'=>"Successful signup"]);
+            return redirect('./signup_success');
+        }catch(Exception $ex){
+            DB::rollBack();
+            //return response()->json(['msg'=>$ex->getMessage()]);
+            return redirect('./')->with(['failure'=>$ex->getMessage()]);
+        }
+
+        
+        
+        
+        //return view('users.signup',compact('Grades'));
   
     }  
     

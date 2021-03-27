@@ -15,20 +15,22 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('userId')->unique();
-            $table->unsignedInteger('levelId');
-            $table->unsignedInteger('semesterNo');
-            $table->unsignedInteger('rollNo');
-
-            $table->foreign('userId')
+            $table->string('name', 50);
+            $table->string('phone', 20);
+            $table->unsignedInteger('grade_id');
+            $table->string('section',20)->nullable();
+            $table->unsignedInteger('rollNo')->nullable();
+            $table->string('user_id', 20)->unique();
+            
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('levelId')
+            $table->foreign('grade_id')
                 ->references('id')
-                ->on('levels')
+                ->on('grades')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
                 

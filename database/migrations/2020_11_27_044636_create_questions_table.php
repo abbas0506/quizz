@@ -15,17 +15,23 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('quizId');
-            $table->string('statement',100);
-            $table->string('optionA',50);
-            $table->string('optionB',50);
-            $table->string('optionC',50);
-            $table->string('optionD',50);
-            $table->string('ans',1);
+            $table->string('question', 100);
+            $table->string('answer',200);
+            $table->unsignedInteger('type');
+            $table->unsignedInteger('rating')->default(0);
+            $table->unsignedInteger('status')->default(0);
+            $table->unsignedInteger('teacher_id');
+            $table->unsignedInteger('subject_id');
             
-            $table->foreign('quizId')
+            $table->foreign('teacher_id')
                 ->references('id')
-                ->on('quizzes')
+                ->on('teachers')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+                
+            $table->foreign('subject_id')
+                ->references('id')
+                ->on('subjects')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

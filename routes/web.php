@@ -13,11 +13,13 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\MySubjectController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AttemptController;
 use App\Http\Controllers\PendingController;
+use App\Models\Grade;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,16 +31,18 @@ use App\Http\Controllers\PendingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('test','test');
-Route::view('/','index');
+
+Route::get('/', function(){
+      $grades=Grade::All();
+      return view('index',compact('grades'));
+});
 //user authorization
 
-Route::view('/signin','users.signin');
+// Route::view('/signin','users.signin');
 Route::post('/signin', [UserController::class, 'signin']);
-Route::get('/signup', [UserController::class, 'signup']);
-Route::post('/signup', [UserController::class, 'store']);
+Route::post('/signup', [UserController::class, 'signup']);
 Route::get('/signout',[UserController::class, 'signout']);
-Route::view('/signup_success', 'users.signup_success');
+Route::view('/signup_success', 'signup_success');
 
 // 
 
@@ -53,10 +57,11 @@ Route::middleware([AdminAccess::class])->group(function(){
 
 Route::middleware([TeacherAccess::class])->group(function(){
       Route::get('/teachers',[TeacherController::class, 'index']);
-      Route::resource('subjects', SubjectController::class)->except(['create']);
+      Route::resource('mysubjects', MySubjectController::class)->except(['create']);
       Route::get('/quiz/stat',[QuizController::class, 'stat']);
       Route::resource('quizzes', QuizController::class);
       Route::resource('questions', QuestionController::class);
+      Route::resource('plans', PlanController::class)->except(['create','edit']);
 });
 
 

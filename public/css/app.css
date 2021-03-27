@@ -11243,6 +11243,30 @@ body {
   color: whitesmoke;
 }
 
+.hover-teal {
+  border: solid;
+  border-color: silver;
+  border-width: 0.5px;
+  border-radius: 5px;
+}
+
+.hover-teal .flaticon-tick {
+  color: rgba(56, 193, 114, 0.3);
+}
+
+.hover-teal:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+  border-color: silver;
+  color: #23615e;
+  font-weight: bold;
+  transition: all 0.5s ease;
+}
+
+.hover-teal:hover .flaticon-tick {
+  color: #38c172;
+}
+
 .btn-teal:hover {
   color: black;
   transition: 0.5s;
@@ -11385,7 +11409,7 @@ body {
   position: absolute;
   top: 0;
   left: 0px;
-  color: rgba(0, 0, 0, 0.8);
+  color: #71dbdb;
   transition: 0.5s;
 }
 
@@ -11403,19 +11427,19 @@ body {
 }
 
 .fancyinput-light input::-moz-placeholder {
-  color: whitesmoke;
+  color: #71dbdb;
 }
 
 .fancyinput-light input:-ms-input-placeholder {
-  color: whitesmoke;
+  color: #71dbdb;
 }
 
 .fancyinput-light input::placeholder {
-  color: whitesmoke;
+  color: #71dbdb;
 }
 
 .fancyinput-light input:not(:-moz-placeholder-shown) ~ label {
-  color: #343a40;
+  color: #71dbdb;
   top: -15px;
   font-size: 0.8rem;
   visibility: visible;
@@ -11425,7 +11449,7 @@ body {
 }
 
 .fancyinput-light input:not(:-ms-input-placeholder) ~ label {
-  color: #343a40;
+  color: #71dbdb;
   top: -15px;
   font-size: 0.8rem;
   visibility: visible;
@@ -11435,7 +11459,7 @@ body {
 }
 
 .fancyinput-light input:not(:placeholder-shown) ~ label {
-  color: #343a40;
+  color: #71dbdb;
   top: -15px;
   font-size: 0.8rem;
   visibility: visible;
@@ -11444,7 +11468,7 @@ body {
 }
 
 .fancyinput-light input:focus {
-  border-bottom: 1px solid #def2f1;
+  border-bottom: 1px solid #71dbdb;
   transition: border-color 0.5s;
 }
 
@@ -11467,7 +11491,7 @@ body {
 }
 
 .fancyinput-light .selected ~ label {
-  color: #343a40;
+  color: #71dbdb;
   top: -15px;
   font-size: 0.8rem;
   visibility: visible;

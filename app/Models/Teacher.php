@@ -9,7 +9,11 @@ class Teacher extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'userId',
+        'name',
+        'phone',
+        'email',
+        'bonus',
+        'user_id',
     ];
 
     public function profile(){
