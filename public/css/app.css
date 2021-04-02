@@ -10933,6 +10933,9 @@ body {
 }
 
 .page-content {
+  position: relative;
+  top: 12vh;
+  left: 0px;
   padding: 3%;
   margin-left: 5%;
 }
@@ -11237,6 +11240,11 @@ body {
   text-decoration: none;
 }
 
+.hyper-dark:hover {
+  background: whitesmoke;
+  cursor: pointer;
+}
+
 .btn-teal {
   background-color: teal;
   color: turquoise;
@@ -11286,6 +11294,16 @@ body {
   text-align: center;
 }
 
+.rotated {
+  transform: rotate(-180deg);
+  transition: 0.5s;
+}
+
+.mx-2 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 /** on small screen */
 
 @media only screen and (max-width: 600px) {
@@ -11308,9 +11326,25 @@ body {
     width: 40px;
   }
 
+  .page-content {
+    margin-left: 0px;
+  }
+
   .sidebar {
     width: 40px !important;
   }
+
+  .responsive-show {
+    visibility: visible !important;
+  }
+
+  .responsive-hide {
+    visibility: hidden !important;
+  }
+}
+
+.responsive-show {
+  visibility: hidden;
 }
 
 .fancyinput-dark {
@@ -11585,11 +11619,16 @@ body {
 .app-header {
   display: flex;
   flex-direction: row;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
   height: 12vh;
   padding-left: 20px;
   padding-right: 10px;
   background-color: white;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.12);
+  z-index: 1;
 }
 
 .app-header .app-name {
@@ -11626,8 +11665,9 @@ body {
 .sidebar {
   display: flex;
   flex-direction: column;
-  float: left;
-  position: absolute;
+  position: fixed;
+  left: 0px;
+  top: 12vh;
   width: 60px;
   min-height: 88vh;
   background-color: #23615e;
@@ -11637,7 +11677,6 @@ body {
 
 .sidebar .menu-item {
   display: flex;
-  flex-direction: row;
   padding: 10px 0px;
 }
 
@@ -11673,5 +11712,31 @@ body {
 .menu-item-active .icon,
 .menu-item-active .icon-desc {
   color: #def2f1 !important;
+}
+
+.menu-hz {
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.menu-hz .badge {
+  position: relative;
+  visibility: hidden;
+  border-radius: 50%;
+  color: white;
+  background-color: teal;
+  top: -15px;
+}
+
+.menu-hz.active {
+  border-style: solid;
+  border-color: teal;
+  border-width: 0px 0px 2px 0px;
+  color: royalblue;
+}
+
+.menu-hz.active .badge {
+  visibility: visible;
 }
 

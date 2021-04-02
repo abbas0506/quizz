@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Subject;
+use App\Models\Teacher;
+use App\Models\Subject;
+use App\Models\question;
 
-class MySubjectController extends Controller
+class TeacherSubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,15 @@ class MySubjectController extends Controller
     public function index()
     {
         //
-        $subjects=Subject::all();
-        return view('teachers.mysubjects.index', compact('subjects'));
+        
+        $subject_ids=Question::distinct()
+                    ->where('teacher_id',session('user_id'))
+                    ->pluck('subject_id');
+        
+        $owned_subjects=Subject::whereIn('id',$subject_ids)->get();
+        $notOwned_subjects=Subject::whereNotIn('id',$subject_ids)->get();
+        $teacher=Teacher::where('user_id',session('user_id'))->first();
+        return view('teachers.mysubjects.index', compact('teacher', 'owned_subjects','notOwned_subjects'));
     }
 
     /**

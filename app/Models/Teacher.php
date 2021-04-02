@@ -17,7 +17,7 @@ class Teacher extends Model
     ];
 
     public function profile(){
-        return $this->belongsTo('App\Models\User','userId');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
     /*
@@ -30,5 +30,6 @@ class Teacher extends Model
     public function quizzesBySubjectId($subjectId){
         return $this->quizzes->where('subjectId',$subjectId);
     }
+    
     
 }

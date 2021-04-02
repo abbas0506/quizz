@@ -10,19 +10,19 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quizId',
-        'statement',
-        'optionA',
-        'optionB',
-        'optionC',
-        'optionD',
-        'ans',
+        'question',
+        'answer',
+        'type',
+        'rating',
+        'status',
+        'subject_id',
+        'teacher_id',
     ];
 
     public $timestamps = false;
 
-    public function quiz(){
-        return $this->belongsTo(Quiz::class,'quizId');
+    public function teacher(){
+        return $this->belongsTo(Teacher::class,'teacher_id');
     }
 
 

@@ -1,6 +1,6 @@
 @extends("layout")
 @section('page')
-   <x-app__header/>
+   <x-app__header username="{{$teacher->name}}"/>
    <x-teachers__sidebar/>
    <div class='page-content'>
            
@@ -38,13 +38,13 @@
       </div>
       
       @endif
-      <div id="selectedSubjects">
+      <div id="ownedSubjects">
          <div class='flex flex-row p-3 txt-20 bg-light border rounded'>
             <div class='mr-auto my-auto'>Subjects</div>
-            <div><i class='flaticon-plus text-info txt-l hyper' onclick="showOrHideRemSubjects()"></i></div>
+            <div><i class='flaticon-plus text-info txt-l hyper' onclick="showOrHideOwnedSubjects()"></i></div>
          </div>
          <!-- display most recent subects on top -->
-         @foreach($subjects as $subject)
+         @foreach($owned_subjects as $subject)
          <div class="mt-2 bg-light border p-3 rounded">
             <!-- Table body -->
             <div class="flex flex-row" >
@@ -54,7 +54,7 @@
                <div onclick="del('{{$subject->id}}')"><i class="flaticon-cancel text-danger txt-10"></i></div>
             </div>
                   
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='s-{{$subject->id}}' data-parent="#selectedSubjects">
+            <div class="flex-container-center mt-2 collapse justify-content-around" id='s-{{$subject->id}}' data-parent="#ownedSubjects">
                <div class='flex flex-col'>
                   <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
                   <div class="txt-s">2000</div>
@@ -73,71 +73,32 @@
          @endforeach
       </div>
 
-      <!-- remaining subject list -->
-      <div id="remainingSubjects" class="hidden">
+      <!-- list of not owned subject -->
+      <div id="notOwnedSubjects" class="hidden">
          <div class='flex flex-row p-3 txt-20 bg-light border rounded'>
-            <div class='mr-auto my-auto'>Choose one subject</div>
-            <div><i class='flaticon-cancel txt-grey hyper txt-m' onclick="showOrHideRemSubjects()"></i></div>
+            <div class='mr-auto my-auto'>Choose a subject</div>
+            <div><i class='flaticon-cancel txt-grey hyper txt-m' onclick="showOrHideOwnedSubjects()"></i></div>
          </div>
-         <div class="flex flex-row rounded p-3 hover-teal mt-1">
-               <div class="txt-m mr-auto">Subject</div>
-               <div class="txt-m txt-b text-success"><i class="flaticon-tick"></i></div>
-               
+         @foreach($notOwned_subjects as $subject)
+         <div class="mt-2 border p-3 rounded hyper-dark" onclick="gotoSubjectQuestionsPage('{{$subject->id}}')">
+            <div class="my-auto">{{$subject->name}}</div>
          </div>
-         <div class="flex flex-row rounded p-3 hover-teal mt-1">
-               <div class="txt-m mr-auto">Subject</div>
-               <div class="txt-m txt-b text-success"><i class="flaticon-tick"></i></div>
-               
-         </div>
+         @endforeach
+         
       </div>
    </div>
-@endsection
-@section('modal')
-   <!----------------------------------------------------------------------------
-									create modal
-	------------------------------------------------------------------------------>
-
-	<div class="modal fade" id="createModal" role="dialog" >
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title">New subject</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- modal body -->
-				<div class="modal-body">
-					<div class="container">
-					   <form method="post" action="{{route('subjects.store')}}">
-						   @csrf
-                     
-                     <div class="txt-10 my-auto mb-2 mt-4">Subject Name</div>
-                     <div class="mb-4"><input type="text" class="form-control" placeholder="subject name" required id='name' name='name'></div>
-                     
-                     <div class="text-right mb-2"><button type='submit' class="btn btn-success">Submit</button></div>
-
-                  </form>         
-					</div>
-				</div>
-			</div>
-		</div> 
-   </div>
-   
 @endsection
 
 @section('script')
    <script>
-      function showOrHideRemSubjects(){
+      function showOrHideOwnedSubjects(){
          
-         $('#remainingSubjects').toggle();
-         $('#selectedSubjects').toggle();
-         //fetch subject which have not been selected already
-         //load subjects into droplist
-         //show modal
+         $('#notOwnedSubjects').toggle();
+         $('#ownedSubjects').toggle();
+         
       }
-      function addSubjectAndRefreshPage(){
-      
+      function gotoSubjectQuestionsPage(subjectId){
+         alert(subjectId);
       }
       
       function del(id){

@@ -20,7 +20,7 @@ class CreateStudentsTable extends Migration
             $table->unsignedInteger('grade_id');
             $table->string('section',20)->nullable();
             $table->unsignedInteger('rollNo')->nullable();
-            $table->string('user_id', 20)->unique();
+            $table->unsignedInteger('user_id')->unique();
             
             $table->foreign('user_id')
                 ->references('id')

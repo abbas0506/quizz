@@ -22,8 +22,8 @@
          <form method='post' class="w-80" action="./signin">
             @csrf
             <div class="fancyinput-dark mb-4">
-               <input type="text" name="id" value="" required autocomplete="off" placeholder="User ID">
-               <label>User ID</label>   
+               <input type="text" name="loginid" value="" required autocomplete="off" placeholder="Login ID">
+               <label>Login ID</label>   
             </div>
 
             <div class="fancyinput-dark mb-4">

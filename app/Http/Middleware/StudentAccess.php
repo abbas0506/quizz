@@ -16,7 +16,7 @@ class StudentAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session('role')=='student'){
+        if(session('usertype')=='student'){
             return $next($request);
         }
         else{

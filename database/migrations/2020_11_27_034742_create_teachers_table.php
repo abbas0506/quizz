@@ -19,7 +19,7 @@ class CreateTeachersTable extends Migration
             $table->string('phone', 50);
             $table->string('email', 50)->nullable();
             $table->string('bonus', 50)->default(10);
-            $table->string('user_id',20)->unique();
+            $table->unsignedInteger('user_id')->unique();
 
             $table->foreign('user_id')
                 ->references('id')

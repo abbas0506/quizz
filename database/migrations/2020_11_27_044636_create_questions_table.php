@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->string('question', 100);
             $table->string('answer',200);
-            $table->unsignedInteger('type');
+            $table->unsignedInteger('type');;
             $table->unsignedInteger('rating')->default(0);
             $table->unsignedInteger('status')->default(0);
             $table->unsignedInteger('teacher_id');

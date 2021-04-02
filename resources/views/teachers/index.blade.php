@@ -1,7 +1,7 @@
 @extends("layout")
 @section('page')
    <div class='w-100 h-100'>
-      <x-app__header/>
+      <x-app__header username="{{$teacher->name}}" />
       <x-teachers__sidebar/>
       <div class='page-content'>
          <div class='p-3 txt-20 bg-light border rounded'>Profile</div>
@@ -15,15 +15,15 @@
                <div class='flex flex-col w-70 auto-expand'>
                   
                      <div class='lbl-s txt-teal'>Name</div>
-                     <div class='txt-m mb-2' >Muhammad Abbas</div>
+                     <div class='txt-m mb-2' >{{$teacher->name}}</div>
                      <div class='lbl-s'>Designation</div>
-                     <div class='txt-m mb-2' >Subject Specialist</div>
+                     <div class='txt-m mb-2' >-</div>
                      <div class='lbl-s'>Phone</div>
-                     <div class='txt-m mb-2' >03424930066</div>
+                     <div class='txt-m mb-2' >{{$teacher->phone}}</div>
                      <div class='lbl-s'>Email</div>
-                     <div class='txt-m mb-2' >abbas.sscs@gmail.com</div>
+                     <div class='txt-m mb-2' >@if($teacher->email){{$teacher->email}} @else - @endif</div>
                      <div class='lbl-s'>Address</div>
-                     <div class='txt-m mb-2' >Govt. Higher Secondary School Chak Bedi, Pakpattan</div>
+                     <div class='txt-m mb-2' >-</div>
                   
                </div>
             

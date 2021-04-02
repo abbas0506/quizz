@@ -16,7 +16,7 @@ class AdminAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session('role')=='admin'){
+        if(session('usertype')=='admin'){
             return $next($request);
         }
         else{

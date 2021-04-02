@@ -1,0 +1,22 @@
+.menu-hz {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: medium;
+    .badge {
+        position: relative;
+        visibility: hidden;
+        border-radius: 50%;
+        color: white;
+        background-color: teal;
+        top: -15px;
+    }
+    &.active {
+        border-style: solid;
+        border-color: teal;
+        border-width: 0px 0px 2px 0px;
+        color: royalblue;
+        .badge {
+            visibility: visible;
+        }
+    }
+}

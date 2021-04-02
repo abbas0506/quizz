@@ -1,27 +1,38 @@
 @use "variables";
 
 /** on small screen */
+
 @media only screen and (max-width: 600px) {
-   .auto-expand{
-      width: 100% !important;
-      padding: 5% !important;
-      
-   }
+    .auto-expand {
+        width: 100% !important;
+        padding: 5% !important;
+    }
+    .auto-col {
+        display: flex;
+        flex-direction: column;
+    }
+    .home__page .overlay ul li {
+        font-size: 1.2rem !important;
+    }
+    .auto-shrink {
+        height: 40px;
+        width: 40px;
+    }
+    .page-content {
+        margin-left: 0px;
+    }
+    .sidebar {
+        width: $menubar-width - 20px !important;
+    }
+    .responsive-show {
+        visibility: visible !important;
+    }
+    .responsive-hide {
+        visibility: hidden !important;
+    }
+}
 
-   .auto-col{
-      display: flex;
-      flex-direction: column;
-   }
-
-   .home__page .overlay ul li{
-      font-size:1.2rem !important;
-   }
-
-   .auto-shrink{ 
-      height: 40px;
-      width:40px;
-   }
-   .sidebar{
-      width: $menubar-width - 20px !important;
-   }
+// if large screen
+.responsive-show {
+    visibility: hidden;
 }

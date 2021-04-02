@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        User::create(['id' => 'admin','password'=>'admin','usertype'=>'admin']);
-        User::create(['id' => 'abbas','password'=>'123','usertype'=>'teacher']);
-        Teacher::create(['name' => 'abbas','phone'=>'03424930066','user_id'=>'abbas']);
+        User::create(['loginid' => 'admin','password'=>'admin','usertype'=>'admin']);
+        User::create(['loginid' => 'abbas','password'=>'123','usertype'=>'teacher']);
+        Teacher::create(['name' => 'abbas','phone'=>'03424930066','user_id'=>'2']);
 
         Grade::create(['name' => 'XI-A']);
         Grade::create(['name' => 'XI-B']);

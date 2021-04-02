@@ -30,6 +30,9 @@ body {
 }
 
 .page-content {
+    position: relative;
+    top: $header-height;
+    left: 0px;
     padding: 3%;
     margin-left: 5%;
 }
@@ -340,6 +343,11 @@ body {
     text-decoration: none;
 }
 
+.hyper-dark:hover {
+    background: whitesmoke;
+    cursor: pointer;
+}
+
 .btn-teal {
     background-color: teal;
     color: turquoise;
@@ -384,4 +392,14 @@ body {
     left: -10px;
     font-size: 0.8rem;
     text-align: center;
+}
+
+.rotated {
+    transform: rotate(-180deg);
+    transition: 0.5s;
+}
+
+.mx-2 {
+    margin-left: 20px;
+    margin-right: 20px;
 }

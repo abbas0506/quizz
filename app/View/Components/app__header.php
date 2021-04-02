@@ -11,9 +11,10 @@ class app__header extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($username)
     {
         //
+        $this->username = $username;
     }
 
     /**

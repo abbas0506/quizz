@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Teacher;
 
 class TeacherController extends Controller
 {
@@ -15,7 +16,7 @@ class TeacherController extends Controller
     public function index()
     {
         //
-        $teacher=User::findOrFail(session('userId'))->teacher;
+        $teacher=Teacher::where('user_id',session('user_id'))->first();
         return view('teachers.index', compact('teacher'));
     }
 

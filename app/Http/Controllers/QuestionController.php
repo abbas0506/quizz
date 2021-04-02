@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,8 @@ class QuestionController extends Controller
     public function index()
     {
         //
+        $teacher=Teacher::where('user_id',session('user_id'))->first();
+        return view('questions.index', compact('teacher'));
         
     }
 

@@ -13,7 +13,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\MySubjectController;
+use App\Http\Controllers\TeacherSubjectController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionController;
@@ -57,7 +57,7 @@ Route::middleware([AdminAccess::class])->group(function(){
 
 Route::middleware([TeacherAccess::class])->group(function(){
       Route::get('/teachers',[TeacherController::class, 'index']);
-      Route::resource('mysubjects', MySubjectController::class)->except(['create']);
+      Route::resource('/teachersubjects', TeacherSubjectController::class)->except(['create']);
       Route::get('/quiz/stat',[QuizController::class, 'stat']);
       Route::resource('quizzes', QuizController::class);
       Route::resource('questions', QuestionController::class);

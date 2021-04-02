@@ -1,9 +1,10 @@
 <div class="app-header">
+   <div class="responsive-show my-auto"><i class="flaticon-menu mr-2"></i></div>
    <div class="app-name">SoftQuizz</div>
    <div class="current-user">
       <span><i class="flaticon-bell"></i></span>
       <span class="badge-super">6</span>
-      <span class="user-name" >Greetings, teacher</span>
+      <span class="user-name" >Greetings, {{$username}}</span>
       <img class='user-image auto-shrink' src="/images/teacher.jpg" alt="">
    </div>
 </div>
