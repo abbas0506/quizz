@@ -9,8 +9,10 @@
     height: $header-height;
     padding-left: 20px;
     padding-right: 10px;
-    background-color: $foundation;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.12);
+    border-bottom-style: solid;
+    border-width: thin;
+    border-color: $grey;
+    box-shadow: 5px;
     z-index: 1;
     .app-name {
         width: 20%;

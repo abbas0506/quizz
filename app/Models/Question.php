@@ -15,7 +15,7 @@ class Question extends Model
         'type',
         'rating',
         'status',
-        'subject_id',
+        'chapter_id',
         'teacher_id',
     ];
 

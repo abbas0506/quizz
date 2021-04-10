@@ -20,20 +20,20 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('type');;
             $table->unsignedInteger('rating')->default(0);
             $table->unsignedInteger('status')->default(0);
+            $table->unsignedBigInteger('chapter_id');
             $table->unsignedInteger('teacher_id');
-            $table->unsignedInteger('subject_id');
+            
+            $table->foreign('chapter_id')
+                ->references('id')
+                ->on('chapters')
+                ->onDelete('cascade');
             
             $table->foreign('teacher_id')
                 ->references('id')
                 ->on('teachers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-                
-            $table->foreign('subject_id')
-                ->references('id')
-                ->on('subjects')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            
         });
     }
 

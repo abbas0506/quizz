@@ -10938,6 +10938,7 @@ body {
   left: 0px;
   padding: 3%;
   margin-left: 5%;
+  background-color: white;
 }
 
 /* text related css */
@@ -10976,6 +10977,10 @@ body {
 
 .txt-m {
   font-size: 1rem;
+}
+
+.txt-ml {
+  font-size: 1.2rem;
 }
 
 .txt-l {
@@ -11533,7 +11538,7 @@ body {
 }
 
 .home__background {
-  color: #def2f1;
+  color: #23615e;
   min-height: 100vh;
   width: 100vw;
   position: relative;
@@ -11626,8 +11631,10 @@ body {
   height: 12vh;
   padding-left: 20px;
   padding-right: 10px;
-  background-color: white;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.12);
+  border-bottom-style: solid;
+  border-width: thin;
+  border-color: #d3d1d1;
+  box-shadow: 5px;
   z-index: 1;
 }
 
@@ -11671,47 +11678,46 @@ body {
   width: 60px;
   min-height: 88vh;
   background-color: #23615e;
+  color: #969292;
+  padding-top: 20px;
   z-index: 1;
   transition: 0.5s ease;
 }
 
 .sidebar .menu-item {
-  display: flex;
-  padding: 10px 0px;
-}
-
-.sidebar .menu-item .icon {
-  min-width: 60px;
+  flex-direction: inherit;
   text-align: center;
-  font-size: 1.2rem;
-  color: silver;
+  padding: 5px 0px;
 }
 
-.sidebar .menu-item .icon-desc {
-  visibility: hidden;
-  color: silver;
-  font-size: 0.8rem;
-  padding-top: 8px;
-}
-
+.sidebar .menu-item.active .icon,
+.sidebar .menu-item.active .icon-desc,
 .sidebar .menu-item:hover .icon,
 .sidebar .menu-item:hover .icon-desc {
-  color: #def2f1;
-  transition: 0.5s ease;
+  color: white;
+}
+
+.sidebar .hyper {
+  color: #969292;
+}
+
+.sidebar .icon {
+  font-size: 1.2rem;
+}
+
+.sidebar .icon-desc {
+  visibility: hidden;
+  font-size: 0.75rem;
 }
 
 .sidebar:hover {
-  width: 180px;
-  transition: 0.5s ease;
+  width: 75px;
 }
 
 .sidebar:hover .icon-desc {
+  margin-bottom: 20px;
   visibility: visible;
-}
-
-.menu-item-active .icon,
-.menu-item-active .icon-desc {
-  color: #def2f1 !important;
+  transition: 0.5s ease;
 }
 
 .menu-hz {

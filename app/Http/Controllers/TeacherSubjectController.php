@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chapter;
 use Illuminate\Http\Request;
-use App\Models\Teacher;
 use App\Models\Subject;
 use App\Models\question;
+use Symfony\Component\Console\Question\Question as QuestionQuestion;
 
 class TeacherSubjectController extends Controller
 {
@@ -16,16 +17,9 @@ class TeacherSubjectController extends Controller
      */
     public function index()
     {
-        //
         
-        $subject_ids=Question::distinct()
-                    ->where('teacher_id',session('user_id'))
-                    ->pluck('subject_id');
+        return view('teachers.subjects.index');
         
-        $owned_subjects=Subject::whereIn('id',$subject_ids)->get();
-        $notOwned_subjects=Subject::whereNotIn('id',$subject_ids)->get();
-        $teacher=Teacher::where('user_id',session('user_id'))->first();
-        return view('teachers.mysubjects.index', compact('teacher', 'owned_subjects','notOwned_subjects'));
     }
 
     /**

@@ -56,12 +56,15 @@ Route::middleware([AdminAccess::class])->group(function(){
 });
 
 Route::middleware([TeacherAccess::class])->group(function(){
-      Route::get('/teachers',[TeacherController::class, 'index']);
-      Route::resource('/teachersubjects', TeacherSubjectController::class)->except(['create']);
+      Route::get('teachers',[TeacherController::class, 'index']);
+      Route::view('questionbank', 'teachers.listSubjects');
       Route::get('/quiz/stat',[QuizController::class, 'stat']);
       Route::resource('quizzes', QuizController::class);
       Route::resource('questions', QuestionController::class);
       Route::resource('plans', PlanController::class)->except(['create','edit']);
+      Route::post('listChapters',[QuestionController::class, 'listChapters']);
+      Route::post('listQuestions',[QuestionController::class, 'listQuestions']);
+      
 });
 
 

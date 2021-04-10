@@ -30,6 +30,22 @@ class Teacher extends Model
     public function quizzesBySubjectId($subjectId){
         return $this->quizzes->where('subjectId',$subjectId);
     }
+    public function contribution_subjects(){
+        //subjects having contribution
+        $subject_ids=Chapter::distinct()
+        ->join('questions', 'questions.chapter_id','chapters.id' )
+        ->select('subject_id')
+        ->where('teacher_id',$this->id)
+        ->get();
+       
+        return Subject::whereIn('id',$subject_ids)->get();
+        
+    }
+    public function nocontribution_subjects(){
+        //subjects having no contribution
+        return Subject::all()->diff($this->contribution_subjects());
+        
+    }
     
     
 }

@@ -1,6 +1,6 @@
 @extends("layout")
 @section('page')
-   <x-app__header username="{{$teacher->name}}"/>
+   <x-app__header/>
    <x-teachers__sidebar/>
    <div class='page-content'>
            
@@ -39,162 +39,141 @@
       
       @endif
       
-      <div class="flex mb-2 txt-l">Subject Name</div>
+      @if(isset($chapter))
+      @php 
+         $subject=$chapter->subject; 
+         $shortQs=$chapter->questions->where('type',1);
+         $longQs=$chapter->questions->where('type',2);
+         $MCQs=$chapter->questions->where('type',3);
+      @endphp
+      <div class="flex mb-2 txt-l">{{$subject->name}}</div>
          <div id="ownedSubjects">
             <div class='flex bg-light border rounded auto-col'>
                <div class='flex w-60 my-auto auto-expand'>
-                  <select class="form-control border-0 ">
-                     <option value="1">First Chapter</option>
-                     <option value="1">First Chapter</option>
-                     <option value="1">First Chapter</option>
+                  <select class="form-control border-0" onchange="listQuestions()">
+                     @foreach($subject->chapters as $ch)
+                     <option value="{{$ch->id}}" @if($chapter->id==$ch->id) selected @endif>{{$ch->name}}</option>
+                     @endforeach
                   </select>
                   </div>
-                  <div class="flex flex-col ml-2 txt-xl mr-auto mx-auto">
+                  <div class="flex flex-row ml-2 txt-xl mr-auto mx-auto">
                      <div class="text-center"><i class='flaticon-plus text-success hyper'></i></div>
-                     <div class="text-center txt-s text-success my-auto">Add new Question</div>
+                     <div class="text-center txt-s text-success my-auto"> &nbsp Add new Question</div>
                   </div>
                
                <div class="flex mx-auto">
-                  <div class="menu-hz active my-auto" >Short <span class="badge">6</span></div>
-                  <div class="menu-hz my-auto">Long<span class="badge">66</span></div>
-                  <div class="menu-hz my-auto">MCQs<span class="badge">6</span></div>
+                  <div class="menu-hz active my-auto" onclick="showShortOnly()">Short <span class="badge txt-s">{{$shortQs->count()}}</span></div>
+                  <div class="menu-hz my-auto" onclick="showLongOnly()">Long<span class="badge txt-s">{{$longQs->count()}}</span></div>
+                  <div class="menu-hz my-auto" onclick="showMCQsOnly()">MCQs<span class="badge txt-s">{{$MCQs->count()}}</span></div>
                </div>
             
-         </div>
-         <!-- display question from selected category  -->
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#s1' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2 ml-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
-            </div>
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='s1' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
-               </div>
-            </div> 
-         </div>
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#q2' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
-            </div>
-            
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='q2' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
-               </div>
-            </div> 
          </div>
 
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#q2' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
-            </div>
-            
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='q2' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
+         <form method='post' action="listQuestions">
+            @csrf
+            <input type="text" name='chapter_id' id='chapter_id' hidden>
+            <input type="text" name="type" value="1" hidden>
+         </form>
+         
+         <!-- SHORT QUESTIONS  -->
+         <div id='shortQs'>
+            @foreach($shortQs as $question)
+            <div class="mt-2 bg-light border p-3 rounded">
+               <!-- question statement -->
+               <div class="flex flex-row" >
+                  <div class="flex rotate"><a href='#s1' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
+                  <div class="flex mx-2 mr-auto">{{$question->question}}</div>
+                  <div class='mr-2 ml-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
+                  <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
                </div>
-            </div> 
-         </div>
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#q2' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
+                     
+               <div class="flex-container-center mt-2 collapse justify-content-around" id='s1' data-parent="#ownedSubjects">
+                  <div class='flex flex-col'>
+                     <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
+                     <div class="txt-s">2000</div>
+                  </div>
+               </div> 
             </div>
-            
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='q2' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
+            @endforeach
+         </div>   <!-- short questions ends here -->
+
+         <!-- LONG QUESTIONS -->
+         <div id='longQs' class="hidden">
+            @foreach($longQs as $question)
+            <div class="mt-2 bg-light border p-3 rounded">
+               <!-- question statement -->
+               <div class="flex flex-row" >
+                  <div class="flex rotate"><a href='#s1' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
+                  <div class="flex mx-2 mr-auto">{{$question->question}}</div>
+                  <div class='mr-2 ml-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
+                  <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
                </div>
-            </div> 
-         </div>
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#q2' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
+                     
+               <div class="flex-container-center mt-2 collapse justify-content-around" id='s1' data-parent="#ownedSubjects">
+                  <div class='flex flex-col'>
+                     <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
+                     <div class="txt-s">2000</div>
+                  </div>
+               </div> 
             </div>
-            
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='q2' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
+            @endforeach
+         </div>   <!-- long questions ends here -->
+
+         <!-- MCQs -->
+         <div id='MCQs' class="hidden">
+            @foreach($MCQs as $question)
+            <div class="mt-2 bg-light border p-3 rounded">
+               <!-- question statement -->
+               <div class="flex flex-row" >
+                  <div class="flex rotate"><a href='#s1' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
+                  <div class="flex mx-2 mr-auto">{{$question->question}}</div>
+                  <div class='mr-2 ml-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
+                  <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
                </div>
-            </div> 
-         </div>
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#q2' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
+                     
+               <div class="flex-container-center mt-2 collapse justify-content-around" id='s1' data-parent="#ownedSubjects">
+                  <div class='flex flex-col'>
+                     <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
+                     <div class="txt-s">2000</div>
+                  </div>
+               </div> 
             </div>
-            
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='q2' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
-               </div>
-            </div> 
-         </div>
-         <div class="mt-2 bg-light border p-3 rounded">
-            <!-- Table body -->
-            <div class="flex flex-row" >
-               <div class="flex rotate"><a href='#q2' data-toggle='collapse' class="hyper"><i class="flaticon-arrow"></i></a></div>
-               <div class="flex mx-2 mr-auto">What is meant by computer and what is meant by exaclty smart computer can up tel me?</div>
-               <div class='mr-2' onclick="del('')"><i class="flaticon-pencil text-success txt-10"></i></div>
-               <div onclick="del('')"><i class="flaticon-cancel text-danger txt-10"></i></div>
-            </div>
-            
-                  
-            <div class="flex-container-center mt-2 collapse justify-content-around" id='q2' data-parent="#ownedSubjects">
-               <div class='flex flex-col'>
-                  <div class='txt-m txt-teal'><i class='flaticon-question'></i></div>
-                  <div class="txt-s">2000</div>
-               </div>
-            </div> 
-         </div>
+            @endforeach
+         </div>   <!-- mcqs questions ends here -->
 
       </div>
+      @else
+               No chapter selected
+      @endif
+      
+      
 @endsection
 
 @section('script')
    <script>
-      function showOrHideOwnedSubjects(){
-         
-         $('#notOwnedSubjects').toggle();
-         $('#ownedSubjects').toggle();
-         
+
+      function listQuestions(){
+         $('#chapter_id').val(event.target.value);
+         $('form').submit()
       }
-      function gotoSubjectQuestionsPage(subjectId){
-         alert(subjectId);
+      
+      function showShortOnly(){
+         $('#shortQs').show();
+         $('#longQs').hide();
+         $('#MCQs').hide();
+
+      }
+      function showLongOnly(){
+         $('#shortQs').hide();
+         $('#longQs').show();
+         $('#MCQs').hide();
+
+      }
+      function showMCQsOnly(){
+         $('#shortQs').hide();
+         $('#longQs').hide();
+         $('#MCQs').show();
+
       }
       
       function del(id){

@@ -27,9 +27,8 @@ class UserController extends Controller
         if($user){
             //authenticated, save into session
             session([
-                'user_id' => $user->id,
-                'usertype' => $user->usertype,
-                ]);
+                'user' => $user,
+            ]);
             
             if($user->usertype=='student') return redirect('./students');
             if($user->usertype=='teacher') return redirect('./teachers');

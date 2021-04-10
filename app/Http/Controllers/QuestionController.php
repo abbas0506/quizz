@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
+use App\Models\Chapter;
 use App\Models\Question;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -16,8 +17,8 @@ class QuestionController extends Controller
     public function index()
     {
         //
-        $teacher=Teacher::where('user_id',session('user_id'))->first();
-        return view('questions.index', compact('teacher'));
+        
+        return view('questions.index');
         
     }
 
@@ -143,5 +144,30 @@ class QuestionController extends Controller
         
         return redirect('./quizzes/'.$quizId)->with(['success'=>"Successfully deleted"]);
 
+    }
+
+    public function showQuestions(Request $request){
+        $request->validate([
+            'chapter_id' => 'required',
+        ]);
+                
+        $chapter=Chapter::findOrFail($request->chapter_id);
+        return view('questions.index', compact('chapter'));
+    }
+    
+    public function listChapters(Request $request){
+        $request->validate([
+            'subject_id' => 'required',
+        ]);
+        
+        $subject=Subject::findOrFail($request->subject_id);
+        return view('questions.listChapters', compact('subject'));
+    }
+    public function listQuestions(Request $request){
+        $request->validate([
+            'chapter_id' => 'required',
+        ]);
+        $chapter=Chapter::find($request->chapter_id);
+        return view('questions.index', compact('chapter'));
     }
 }

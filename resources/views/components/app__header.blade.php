@@ -4,7 +4,7 @@
    <div class="current-user">
       <span><i class="flaticon-bell"></i></span>
       <span class="badge-super">6</span>
-      <span class="user-name" >Greetings, {{$username}}</span>
+      <span class="user-name" >Greetings, {{session('user')->profile->name}}</span>
       <img class='user-image auto-shrink' src="/images/teacher.jpg" alt="">
    </div>
 </div>

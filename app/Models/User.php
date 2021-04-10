@@ -27,7 +27,10 @@ class User extends Authenticatable
         return $this->hasOne(Student::class,'user_id');
     }
     public function profile(){
-        return $this->hasOne(Teacher::class,'user_id');
+        if($this->usertype=='teacher')
+            return $this->hasOne(Teacher::class,'user_id');
+        elseif($this->usertype=='student')
+            return $this->hasOne(Student::class,'user_id');
     }
     
     

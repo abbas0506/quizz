@@ -16,7 +16,8 @@ class TeacherAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session('usertype')=='teacher'){
+        $user=session('user');
+        if($user->usertype=='teacher'){
             return $next($request);
         }
         else{
